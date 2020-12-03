@@ -29,7 +29,7 @@ namespace JEng.Sample.GameScreens
 
             AnimationSet data = Content.Load<AnimationSet>("wizard1");
             entity.Attach(new AnimationComponent(data));
-            entity.Attach(new RigidbodyComponent(Physics.CreateRigidbody(new Vector2(180, 180))));
+            entity.Attach(new RigidbodyComponent(CreateRigidbody(new Vector2(180, 180))));
             entity.Attach(new CharacterControllerComponent() { Controller = new InputCharacterController() });
 
 
@@ -39,8 +39,7 @@ namespace JEng.Sample.GameScreens
             cam.Attach(new CameraComponent()
             {
                 Active = true,
-                Camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GameRef.GraphicsDevice, (int)(300 * 1.7777f), 300)),
-                Tracking = entity
+                Camera = new OrthographicCamera(new BoxingViewportAdapter(Game.Window, GameRef.GraphicsDevice, (int)(300 * 1.7777f), 300))
             });
         }
     }

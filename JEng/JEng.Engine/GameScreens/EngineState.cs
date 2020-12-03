@@ -55,5 +55,6 @@ namespace JEng.Engine.GameScreens
         }
 
         protected Entity CreateEntity() => _world.CreateEntity();
+        protected Rigidbody CreateRigidbody(Vector2 position) => _physicsSystem.Physics.CreateRigidbody(position);
     }
 }
