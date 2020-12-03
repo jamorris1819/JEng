@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aether.Physics2D" Version="1.5.0" />
+    <PackageReference Include="MonoGame.Extended" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Extended.Entities" Version="3.7.0" />
+    <PackageReference Include="MonoGame.Framework.Portable" Version="3.7.1.189" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameLibrary\GameLibrary.csproj" />
+    <ProjectReference Include="..\JEng.Content.Pipeline.Data\JEng.Content.Pipeline.Data.csproj" />
+  </ItemGroup>
+
+</Project>
