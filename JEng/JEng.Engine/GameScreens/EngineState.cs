@@ -20,6 +20,8 @@ namespace JEng.Engine.GameScreens
         private World _world;
         private PhysicsSystem _physicsSystem;
 
+        protected Physics Physics { get => _physicsSystem.Physics; }
+
         public EngineState(Game game, GameStateManager manager) : base(game, manager) { }
 
         public override void Initialize()
@@ -55,6 +57,5 @@ namespace JEng.Engine.GameScreens
         }
 
         protected Entity CreateEntity() => _world.CreateEntity();
-        protected Rigidbody CreateRigidbody(Vector2 position) => _physicsSystem.Physics.CreateRigidbody(position);
     }
 }

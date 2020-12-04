@@ -15,15 +15,14 @@ namespace JEng.Engine.Systems
         private tainicom.Aether.Physics2D.Dynamics.World _world;
         private ComponentMapper<RigidbodyComponent> _rigidbodyMapper;
         private ComponentMapper<TransformComponent> _transformMapper;
-        private Physics _physics;
         private readonly float _simulationSpeed;
 
-        public Physics Physics { get => _physics; }
+        public Physics Physics { get; }
 
         public PhysicsSystem() : base(Aspect.All(typeof(RigidbodyComponent), typeof(TransformComponent)))
         {
             _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
-            _physics = new Physics(_world);
+            Physics = new Physics(_world);
             _simulationSpeed = 1.0f / 60.0f;
         }
 

@@ -9,6 +9,7 @@ namespace JEng.Core.Physics
     public class Rigidbody
     {
         private Body _body;
+        private float _friction;
 
         public Vector2 Position
         {
@@ -17,6 +18,34 @@ namespace JEng.Core.Physics
                 var pos = _body.Position;
                 return new Vector2(pos.X, pos.Y);
             }
+        }
+
+        public Vector2 LinearVelocity
+        {
+            get => Physics.ConvertVector(_body.LinearVelocity);
+            set => _body.LinearVelocity = Physics.ConvertVector(value);
+        }
+
+        public float Friction
+        {
+            get => _friction;
+            set
+            {
+                _body.SetFriction(value);
+                _friction = value;
+            }
+        }
+
+        public float LinearDrag
+        {
+            get => _body.LinearDamping;
+            set => _body.LinearDamping = value;
+        }
+
+        public float AngularDrag
+        {
+            get => _body.AngularDamping;
+            set => _body.AngularDamping = value;
         }
 
         public RigidbodyType Type
@@ -32,12 +61,7 @@ namespace JEng.Core.Physics
 
         public void ApplyForce(Vector2 vec) => ApplyForce(vec.X, vec.Y);
 
-        public void ApplyForce(float x, float y)
-        {
-            _body.ApplyLinearImpulse(new tainicom.Aether.Physics2D.Common.Vector2(x, y));
-            //_body.
-            //SetVelocity(new Vector2(_body.LinearVelocity.X, _body.LinearVelocity.Y) * new Vector2(x, y))
-        }
+        public void ApplyForce(float x, float y) => _body.ApplyLinearImpulse(new tainicom.Aether.Physics2D.Common.Vector2(x, y));
 
         public void SetVelocity(Vector2 vec)
             => _body.LinearVelocity = new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
