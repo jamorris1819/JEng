@@ -27,6 +27,7 @@ namespace JEng.Engine.Systems
         {
             foreach(var entity in ActiveEntities)
             {
+                Console.WriteLine(_rigidbodyMapper.Get(entity).Body.Position);
                 var controller = _controllerMapper.Get(entity);
                 if (controller.Controller.RigidbodyComponent == null)
                 {

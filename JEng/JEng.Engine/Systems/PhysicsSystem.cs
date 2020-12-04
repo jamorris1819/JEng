@@ -22,7 +22,7 @@ namespace JEng.Engine.Systems
 
         public PhysicsSystem() : base(Aspect.All(typeof(RigidbodyComponent), typeof(TransformComponent)))
         {
-            _world = new tainicom.Aether.Physics2D.Dynamics.World();
+            _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
             _physics = new Physics(_world);
             _simulationSpeed = 1.0f / 60.0f;
         }
