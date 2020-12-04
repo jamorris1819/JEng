@@ -13,6 +13,7 @@ using JEng.Engine.Systems;
 using System.Linq;
 using JEng.Engine;
 using JEng.Engine.GameScreens;
+using JEng.Core.Physics.Colliders;
 
 namespace JEng.Sample.GameScreens
 {
@@ -29,18 +30,16 @@ namespace JEng.Sample.GameScreens
 
             AnimationSet data = Content.Load<AnimationSet>("wizard1");
             entity.Attach(new AnimationComponent(data));
-            entity.Attach(Physics.CreateRigidbody(RigidbodyType.Dynamic));
+            entity.Attach(Physics.CreateRigidbody(new CircleCollider(8.0f), RigidbodyType.Dynamic));
             entity.Attach(new CharacterControllerComponent() { Controller = new InputCharacterController() });
 
             entity = CreateEntity();
             entity.Attach(new TransformComponent(new Vector2(400, 180)));
             entity.Attach(new AnimationComponent(data));
 
-            var rbody = Physics.CreateRigidbody(RigidbodyType.Dynamic);
+            var rbody = Physics.CreateRigidbody(new CircleCollider(8.0f), RigidbodyType.Dynamic);
             rbody.LinearDrag = 10.0f;
             entity.Attach(rbody);
-
-
 
             var cam = CreateEntity();
             cam.Attach(new TransformComponent(new Vector2(0, 0)));

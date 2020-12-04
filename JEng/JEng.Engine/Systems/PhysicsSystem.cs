@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using JEng.Core.Physics;
+using JEng.Core.Physics.Colliders;
 
 namespace JEng.Engine.Systems
 {
@@ -40,17 +41,19 @@ namespace JEng.Engine.Systems
             {
                 var rigidbody = _rigidbodyMapper.Get(entity);
                 var transform = _transformMapper.Get(entity);
-                transform.Position = rigidbody.Position;// + rigidbody.Offset;
+                transform.Position = rigidbody.Position + rigidbody.Offset;
             }
         }
 
         protected override void OnEntityAdded(int entityId)
         {
             var rigidbody = _rigidbodyMapper.Get(entityId);
-            var transform = _transformMapper.Get(entityId);
-            if (rigidbody == null || transform == null) return;
+             var transform = _transformMapper.Get(entityId);
 
-            rigidbody.Position = transform.Position;
+            if (rigidbody != null && transform != null)
+            {
+                rigidbody.Position = transform.Position;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JEng.Core.Physics.Colliders;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,12 @@ namespace JEng.Core.Physics
 
         public Rigidbody CreateRigidbody(RigidbodyType type = RigidbodyType.Static)
             => new Rigidbody(_world.CreateBody(default, default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())));
+
+        public Rigidbody CreateRigidbody(Collider collider, RigidbodyType type = RigidbodyType.Static)
+            => new Rigidbody(
+                _world.CreateBody(default, default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())),
+                collider                
+                );
 
 
         public static Vector2 ConvertVector(tainicom.Aether.Physics2D.Common.Vector2 vec) => new Vector2(vec.X, vec.Y);

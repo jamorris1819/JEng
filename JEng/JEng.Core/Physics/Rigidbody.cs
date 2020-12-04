@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JEng.Core.Physics.Colliders;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,12 @@ namespace JEng.Core.Physics
     {
         private Body _body;
         private float _friction;
+
+        internal Body Body => _body;
+
+        public float Density { get; set; }
+
+        public Vector2 Offset { get; set; }
 
         public Vector2 Position
         {
@@ -54,6 +61,12 @@ namespace JEng.Core.Physics
         public Rigidbody(Body body)
         {
             _body = body;
+        }
+
+        public Rigidbody(Body body, Collider collider)
+        {
+            _body = body;
+            collider.ConstructCollider(this);
         }
 
         public void ApplyForce(Vector2 vec) => ApplyForce(vec.X, vec.Y);
