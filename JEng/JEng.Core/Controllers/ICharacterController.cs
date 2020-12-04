@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using JEng.Core.Components;
-using JEng.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using JEng.Core.Enums;
+using JEng.Core.Physics;
+using Microsoft.Xna.Framework;
 
 namespace JEng.Core.Controllers
 {
     public interface ICharacterController
     {
-        RigidbodyComponent RigidbodyComponent { get; set; }
+        Rigidbody Rigidbody { get; set; }
         CharacterDirection GetDirection();
         CharacterAction GetAction();
         void Update(GameTime gameTime);

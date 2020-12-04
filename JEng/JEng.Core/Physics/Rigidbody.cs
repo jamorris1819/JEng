@@ -13,11 +13,8 @@ namespace JEng.Core.Physics
 
         public Vector2 Position
         {
-            get
-            {
-                var pos = _body.Position;
-                return new Vector2(pos.X, pos.Y);
-            }
+            get => Physics.ConvertVector(_body.Position);
+            set => _body.Position = Physics.ConvertVector(value);
         }
 
         public Vector2 LinearVelocity

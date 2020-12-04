@@ -13,13 +13,13 @@ namespace JEng.Engine.Systems
     public class PhysicsSystem : EntityUpdateSystem
     {
         private tainicom.Aether.Physics2D.Dynamics.World _world;
-        private ComponentMapper<RigidbodyComponent> _rigidbodyMapper;
+        private ComponentMapper<Rigidbody> _rigidbodyMapper;
         private ComponentMapper<TransformComponent> _transformMapper;
         private readonly float _simulationSpeed;
 
         public Physics Physics { get; }
 
-        public PhysicsSystem() : base(Aspect.All(typeof(RigidbodyComponent), typeof(TransformComponent)))
+        public PhysicsSystem() : base(Aspect.All(typeof(Rigidbody), typeof(TransformComponent)))
         {
             _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
             Physics = new Physics(_world);
@@ -28,7 +28,7 @@ namespace JEng.Engine.Systems
 
         public override void Initialize(IComponentMapperService mapperService)
         {
-            _rigidbodyMapper = mapperService.GetMapper<RigidbodyComponent>();
+            _rigidbodyMapper = mapperService.GetMapper<Rigidbody>();
             _transformMapper = mapperService.GetMapper<TransformComponent>();
         }
 
@@ -40,8 +40,17 @@ namespace JEng.Engine.Systems
             {
                 var rigidbody = _rigidbodyMapper.Get(entity);
                 var transform = _transformMapper.Get(entity);
-                transform.Position = rigidbody.Body.Position + rigidbody.Offset;
+                transform.Position = rigidbody.Position;// + rigidbody.Offset;
             }
+        }
+
+        protected override void OnEntityAdded(int entityId)
+        {
+            var rigidbody = _rigidbodyMapper.Get(entityId);
+            var transform = _transformMapper.Get(entityId);
+            if (rigidbody == null || transform == null) return;
+
+            rigidbody.Position = transform.Position;
         }
     }
 }

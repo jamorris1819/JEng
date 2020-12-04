@@ -29,16 +29,16 @@ namespace JEng.Sample.GameScreens
 
             AnimationSet data = Content.Load<AnimationSet>("wizard1");
             entity.Attach(new AnimationComponent(data));
-            entity.Attach(new RigidbodyComponent(Physics.CreateRigidbody(new Vector2(180, 180))));
+            entity.Attach(Physics.CreateRigidbody(RigidbodyType.Dynamic));
             entity.Attach(new CharacterControllerComponent() { Controller = new InputCharacterController() });
 
             entity = CreateEntity();
             entity.Attach(new TransformComponent(new Vector2(400, 180)));
             entity.Attach(new AnimationComponent(data));
 
-            var rbody = Physics.CreateCircleRigidbody(8.0f, 0.1f, new Vector2(400, 180), RigidbodyType.Dynamic);
+            var rbody = Physics.CreateRigidbody(RigidbodyType.Dynamic);
             rbody.LinearDrag = 10.0f;
-            entity.Attach(new RigidbodyComponent(rbody));
+            entity.Attach(rbody);
 
 
 

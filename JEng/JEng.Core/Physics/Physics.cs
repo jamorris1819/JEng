@@ -15,22 +15,8 @@ namespace JEng.Core.Physics
             _world = world;
         }
 
-        public Rigidbody CreateRigidbody(Vector2 position)
-        {
-            var body = _world.CreateCircle(16.0f, 0.15f);
-            body.BodyType = BodyType.Dynamic;
-            body.Position = new tainicom.Aether.Physics2D.Common.Vector2(position.X, position.Y);
-
-            body.SetRestitution(0.3f);
-            body.SetFriction(0.5f);
-
-            return new Rigidbody(body);
-        }
-
-        public Rigidbody CreateCircleRigidbody(float radius, float density, Vector2 position = default, RigidbodyType type = RigidbodyType.Static)
-            => new Rigidbody(_world.CreateCircle(radius, density, ConvertVector(position), (BodyType)Enum.Parse(typeof(BodyType), type.ToString())));
-        
-
+        public Rigidbody CreateRigidbody(RigidbodyType type = RigidbodyType.Static)
+            => new Rigidbody(_world.CreateBody(default, default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())));
 
 
         public static Vector2 ConvertVector(tainicom.Aether.Physics2D.Common.Vector2 vec) => new Vector2(vec.X, vec.Y);

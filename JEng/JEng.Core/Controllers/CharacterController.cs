@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using JEng.Core.Components;
-using JEng.Core.Enums;
+﻿using JEng.Core.Enums;
+using JEng.Core.Physics;
+using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JEng.Core.Controllers
 {
@@ -11,7 +9,7 @@ namespace JEng.Core.Controllers
     {
         private CharacterAction _action;
         private CharacterDirection _direction;
-        public RigidbodyComponent RigidbodyComponent { get; set; }
+        public Rigidbody Rigidbody { get; set; }
         public float Speed { get; set; } = 60.0f;
 
         public CharacterDirection GetDirection() => _direction;
@@ -32,9 +30,9 @@ namespace JEng.Core.Controllers
                 //RigidbodyComponent.Body.ApplyForce(vec * 600.0f);
                 var signedVec = new Vector2(Math.Sign(vec.X), Math.Sign(vec.Y));
                 signedVec.Normalize();
-                RigidbodyComponent.Body.SetVelocity(signedVec * 100.0f);
+                Rigidbody.SetVelocity(signedVec * 100.0f);
             }
-            else RigidbodyComponent.Body.SetVelocity(new Vector2(0, 0));
+            else Rigidbody.SetVelocity(new Vector2(0, 0));
         }
     }
 }
