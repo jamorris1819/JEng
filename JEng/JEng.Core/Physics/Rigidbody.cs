@@ -19,6 +19,12 @@ namespace JEng.Core.Physics
             }
         }
 
+        public RigidbodyType Type
+        {
+            get => (RigidbodyType)Enum.Parse(typeof(RigidbodyType), _body.BodyType.ToString());
+            set => _body.BodyType = (BodyType)Enum.Parse(typeof(BodyType), value.ToString());
+        }
+
         public Rigidbody(Body body)
         {
             _body = body;

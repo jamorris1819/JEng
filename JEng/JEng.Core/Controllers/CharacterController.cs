@@ -29,9 +29,10 @@ namespace JEng.Core.Controllers
             if (vec != Vector2.Zero)
             {
                 vec.Normalize();
-                RigidbodyComponent.Body.ApplyForce(vec * 600.0f);
+                //RigidbodyComponent.Body.ApplyForce(vec * 600.0f);
                 var signedVec = new Vector2(Math.Sign(vec.X), Math.Sign(vec.Y));
-                //RigidbodyComponent.Body.SetVelocity(RigidbodyComponent.Body.GetVelocity() * signedVec);
+                signedVec.Normalize();
+                RigidbodyComponent.Body.SetVelocity(signedVec * 100.0f);
             }
             else RigidbodyComponent.Body.SetVelocity(new Vector2(0, 0));
         }

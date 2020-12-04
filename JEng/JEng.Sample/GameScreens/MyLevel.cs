@@ -32,6 +32,13 @@ namespace JEng.Sample.GameScreens
             entity.Attach(new RigidbodyComponent(CreateRigidbody(new Vector2(180, 180))));
             entity.Attach(new CharacterControllerComponent() { Controller = new InputCharacterController() });
 
+            entity = CreateEntity();
+            entity.Attach(new TransformComponent(new Vector2(400, 180)));
+            entity.Attach(new AnimationComponent(data));
+            var rbody = CreateRigidbody(new Vector2(400, 180));
+            rbody.Type = RigidbodyType.Static;
+            entity.Attach(new RigidbodyComponent(rbody));
+
 
 
             var cam = CreateEntity();

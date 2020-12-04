@@ -17,7 +17,7 @@ namespace JEng.Core.Physics
 
         public Rigidbody CreateRigidbody(Vector2 position)
         {
-            var body = _world.CreateCircle(1.0f, 1.0f);
+            var body = _world.CreateCircle(16.0f, 0.15f);
             body.BodyType = BodyType.Dynamic;
             body.Position = new tainicom.Aether.Physics2D.Common.Vector2(position.X, position.Y);
 
