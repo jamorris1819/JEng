@@ -33,7 +33,7 @@ namespace JEng.Engine.GameScreens
 
             _world = new WorldBuilder()
                 .AddSystem(cameraSystem)
-                .AddSystem(new AnimationSystem(cameraSystem, GameRef.GraphicsDevice))
+                .AddSystem(new RenderSystem(cameraSystem, GameRef.GraphicsDevice))
                 .AddSystem(_physicsSystem)
                 .AddSystem(new CharacterControllerSystem())
                 .Build();

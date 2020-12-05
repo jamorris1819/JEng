@@ -18,6 +18,12 @@ namespace JEng.Core.Physics
 
         public Vector2 Offset { get; set; }
 
+        public float Rotation
+        {
+            get => _body.Rotation;
+            set => _body.Rotation = value;
+        }
+
         public Vector2 Position
         {
             get => Physics.ConvertVector(_body.Position);
@@ -74,7 +80,10 @@ namespace JEng.Core.Physics
         public void ApplyForce(float x, float y) => _body.ApplyLinearImpulse(new tainicom.Aether.Physics2D.Common.Vector2(x, y));
 
         public void SetVelocity(Vector2 vec)
-            => _body.LinearVelocity = new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
+        {
+            Console.WriteLine(vec);
+            _body.LinearVelocity = new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
+        }
 
         public Vector2 GetVelocity()
             => new Vector2(_body.LinearVelocity.X, _body.LinearVelocity.Y);

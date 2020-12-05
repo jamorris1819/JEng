@@ -15,12 +15,12 @@ namespace JEng.Engine.Systems
     {
         private tainicom.Aether.Physics2D.Dynamics.World _world;
         private ComponentMapper<Rigidbody> _rigidbodyMapper;
-        private ComponentMapper<TransformComponent> _transformMapper;
+        private ComponentMapper<Transform> _transformMapper;
         private readonly float _simulationSpeed;
 
         public Physics Physics { get; }
 
-        public PhysicsSystem() : base(Aspect.All(typeof(Rigidbody), typeof(TransformComponent)))
+        public PhysicsSystem() : base(Aspect.All(typeof(Rigidbody), typeof(Transform)))
         {
             _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
             Physics = new Physics(_world);
@@ -30,7 +30,7 @@ namespace JEng.Engine.Systems
         public override void Initialize(IComponentMapperService mapperService)
         {
             _rigidbodyMapper = mapperService.GetMapper<Rigidbody>();
-            _transformMapper = mapperService.GetMapper<TransformComponent>();
+            _transformMapper = mapperService.GetMapper<Transform>();
         }
 
         public override void Update(GameTime gameTime)

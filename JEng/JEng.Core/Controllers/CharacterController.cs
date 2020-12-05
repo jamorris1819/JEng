@@ -17,7 +17,7 @@ namespace JEng.Core.Controllers
 
         public abstract void Update(GameTime gameTime);
 
-        protected void Move(Vector2 vec)
+        protected void Move(Vector2 vec, GameTime gameTime)
         {
             if(Math.Abs(vec.X) > 0) _direction = Math.Sign(vec.X) > 0 ? CharacterDirection.Right : CharacterDirection.Left;
             else if (Math.Abs(vec.Y) > 0) _direction = Math.Sign(vec.Y) >= 0 ? CharacterDirection.Down : CharacterDirection.Up;
@@ -28,9 +28,7 @@ namespace JEng.Core.Controllers
             {
                 vec.Normalize();
                 //RigidbodyComponent.Body.ApplyForce(vec * 600.0f);
-                var signedVec = new Vector2(Math.Sign(vec.X), Math.Sign(vec.Y));
-                signedVec.Normalize();
-                Rigidbody.SetVelocity(signedVec * 100.0f);
+                Rigidbody.SetVelocity(vec * 100.0f);
             }
             else Rigidbody.SetVelocity(new Vector2(0, 0));
         }

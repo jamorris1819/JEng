@@ -12,7 +12,7 @@ namespace JEng.Engine.Systems
         private ComponentMapper<Rigidbody> _rigidbodyMapper;
         private ComponentMapper<AnimationComponent> _animationMapper;
 
-        public CharacterControllerSystem() : base(Aspect.All(typeof(CharacterControllerComponent), typeof(TransformComponent))) { }
+        public CharacterControllerSystem() : base(Aspect.All(typeof(CharacterControllerComponent), typeof(Transform))) { }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
@@ -33,7 +33,7 @@ namespace JEng.Engine.Systems
                 }
                 controller.Controller.Update(gameTime);
                 var animation = _animationMapper.Get(entity);
-                animation.ChangeAnimation(controller.Controller.GetAction().ToString() + controller.Controller.GetDirection().ToString());
+                animation?.ChangeAnimation(controller.Controller.GetAction().ToString() + controller.Controller.GetDirection().ToString());
             }
         }
     }
