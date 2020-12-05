@@ -7,5 +7,10 @@ namespace JEng.Core.Components
         public Vector2 Position { get; set; }
 
         public TransformComponent(Vector2 pos) { Position = pos; }
+
+        public TransformComponent Parent { get; set; }
+
+        public Vector2 GetWorldPosition()
+            => Position + (Parent?.GetWorldPosition() ?? Vector2.Zero);
     }
 }

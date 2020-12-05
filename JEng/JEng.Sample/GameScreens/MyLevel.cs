@@ -1,19 +1,13 @@
 ﻿using GameLibrary;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
-using MonoGame.Extended.Entities;
-using MonoGame.Extended.ViewportAdapters;
 using JEng.Core.Components;
 using JEng.Core.Controllers;
 using JEng.Core.Graphics;
 using JEng.Core.Physics;
-using JEng.Core.TiledMap;
-using JEng.Engine.Systems;
-using System.Linq;
-using JEng.Engine;
-using JEng.Engine.GameScreens;
 using JEng.Core.Physics.Colliders;
+using JEng.Engine.GameScreens;
+using Microsoft.Xna.Framework;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 
 namespace JEng.Sample.GameScreens
 {
@@ -30,8 +24,16 @@ namespace JEng.Sample.GameScreens
 
             AnimationSet data = Content.Load<AnimationSet>("wizard1");
             entity.Attach(new AnimationComponent(data));
-            entity.Attach(Physics.CreateRigidbody(new CircleCollider(8.0f), RigidbodyType.Dynamic));
+            entity.Attach(Physics.CreateRigidbody(new CircleCollider(8.0f), RigidbodyType.Kinematic));
             entity.Attach(new CharacterControllerComponent() { Controller = new InputCharacterController() });
+
+            var child = CreateEntity();
+            child.Attach(new AnimationComponent(data));
+            var transform = new TransformComponent(new Vector2(-20, 0))
+            {
+                Parent = entity.Get<TransformComponent>()
+            };
+            child.Attach(transform);
 
             entity = CreateEntity();
             entity.Attach(new TransformComponent(new Vector2(400, 180)));

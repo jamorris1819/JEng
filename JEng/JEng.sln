@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Content.Pipeline.Data"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{5FF33A1B-43BA-46A1-88DF-FC757755BF9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JEng.Sample", "JEng.Sample\JEng.Sample.csproj", "{174EE7A5-811E-485D-99DE-E5834F45C2E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Sample", "JEng.Sample\JEng.Sample.csproj", "{174EE7A5-811E-485D-99DE-E5834F45C2E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -52,6 +52,8 @@ namespace JEng.Engine.Systems
 
             if (rigidbody != null && transform != null)
             {
+                if (transform.Parent != null) throw new Exception("Child entities may not have a Rigidbody component");
+
                 rigidbody.Position = transform.Position;
             }
         }

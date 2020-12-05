@@ -39,7 +39,7 @@ namespace JEng.Engine.Systems
                 var frame = animationComponent.CurrentAnimation.Frames[animationComponent.CurrentAnimation.CurrentFrame];
 
                 var offsetForOrigin = new Vector2(frame.Width * 0.5f, frame.Height * 0.5f);
-                _spriteBatch.Draw(frame, transformComponent.Position - offsetForOrigin, Color.White);
+                _spriteBatch.Draw(frame, transformComponent.GetWorldPosition() - offsetForOrigin, Color.White);
             }
 
             _spriteBatch.End();
