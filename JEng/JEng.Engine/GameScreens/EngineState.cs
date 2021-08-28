@@ -12,6 +12,8 @@ using JEng.Core.TiledMap;
 using JEng.Engine.Systems;
 using System.Linq;
 using JEng.Engine;
+using MonoGame.Extended.Entities.Systems;
+using System.Collections.Generic;
 
 namespace JEng.Engine.GameScreens
 {
@@ -19,25 +21,42 @@ namespace JEng.Engine.GameScreens
     {
         private World _world;
         private PhysicsSystem _physicsSystem;
+        private Vector2 _gravity;
+
+        private IEnumerable<ISystem> _additionalSystems = new ISystem[0];
 
         protected Physics Physics { get => _physicsSystem.Physics; }
 
-        public EngineState(Game game, GameStateManager manager) : base(game, manager) { }
+        public EngineState(Game game, GameStateManager manager) : this(game, manager, Vector2.Zero) { }
+
+        public EngineState(Game game, GameStateManager manager, Vector2 gravity) : base(game, manager)
+        {
+            _gravity = gravity;
+        }
 
         public override void Initialize()
         {
             base.Initialize();
 
             var cameraSystem = new CameraSystem();
-            _physicsSystem = new PhysicsSystem();
+            _physicsSystem = new PhysicsSystem(_gravity);
 
-            _world = new WorldBuilder()
+            var worldBuilder = new WorldBuilder()
                 .AddSystem(cameraSystem)
                 .AddSystem(new RenderSystem(cameraSystem, GameRef.GraphicsDevice))
                 .AddSystem(_physicsSystem)
-                .AddSystem(new CharacterControllerSystem())
-                .Build();
+                .AddSystem(new CharacterControllerSystem());
+
+            foreach (var system in _additionalSystems)
+            {
+                worldBuilder = worldBuilder.AddSystem(system);
+            }
+
+            _world = worldBuilder.Build();
         }
+
+        protected void SetAdditionalSystems(IEnumerable<ISystem> additionalSystems)
+            => _additionalSystems = additionalSystems;
 
         protected override void LoadContent()
         {

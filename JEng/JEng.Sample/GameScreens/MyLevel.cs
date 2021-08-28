@@ -4,6 +4,7 @@ using JEng.Core.Controllers;
 using JEng.Core.Graphics;
 using JEng.Core.Physics;
 using JEng.Core.Physics.Colliders;
+using JEng.Core.TiledMap;
 using JEng.Engine.GameScreens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,6 +23,9 @@ namespace JEng.Sample.GameScreens
 
             var entity = CreateEntity();
             entity.Attach(new Transform(new Vector2(180, 180)));
+
+
+            TiledMap map = Content.Load<TiledMap>("testmap_jacob");
 
             AnimationSet data = Content.Load<AnimationSet>("wizard1");
             entity.Attach(new Sprite(Content.Load<Texture2D>("gunner"), SpriteOrigin.Centre));

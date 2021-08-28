@@ -20,9 +20,9 @@ namespace JEng.Engine.Systems
 
         public Physics Physics { get; }
 
-        public PhysicsSystem() : base(Aspect.All(typeof(Rigidbody), typeof(Transform)))
+        public PhysicsSystem(Vector2 gravity) : base(Aspect.All(typeof(Rigidbody), typeof(Transform)))
         {
-            _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
+            _world = new tainicom.Aether.Physics2D.Dynamics.World(new tainicom.Aether.Physics2D.Common.Vector2(gravity.X, gravity.Y));
             Physics = new Physics(_world);
             _simulationSpeed = 1.0f / 60.0f;
         }
