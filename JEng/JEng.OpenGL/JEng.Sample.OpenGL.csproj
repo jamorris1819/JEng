@@ -25,12 +25,12 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JEng.Sample\JEng.Sample.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="..\JEng.Content\Content\Content.mgcb" Link="Content\Content.mgcb" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JEng.Sample\JEng.Sample.csproj" />
+    <MonoGameContentReference Include="..\JEng.Sample.Content\Content\Content.mgcb" Link="Content\Content.mgcb" />
   </ItemGroup>
 </Project>

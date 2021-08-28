@@ -8,8 +8,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Engine", "JEng.Engine\JEng.Engine.csproj", "{5A5F7ABE-7DB0-40D7-AC4C-6EB50C28D09F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Sample.OpenGL", "JEng.OpenGL\JEng.Sample.OpenGL.csproj", "{BF5F9837-2800-4506-A79D-EE8E334C947D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{74E958BA-29A5-414F-B768-5CE9539E5B82} = {74E958BA-29A5-414F-B768-5CE9539E5B82}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Content", "JEng.Content\JEng.Content.csproj", "{74E958BA-29A5-414F-B768-5CE9539E5B82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Sample.Content", "JEng.Sample.Content\JEng.Sample.Content.csproj", "{74E958BA-29A5-414F-B768-5CE9539E5B82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JEng.Content.Pipeline", "JEng.Content.Pipeline\JEng.Content.Pipeline.csproj", "{934C5A15-F633-4A73-A11D-76CF318C8ABF}"
 EndProject
