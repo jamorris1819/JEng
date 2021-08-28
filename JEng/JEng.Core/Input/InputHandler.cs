@@ -1,17 +1,11 @@
-// Author(s): Jacob Morris
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using GameLibrary.Graphics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-
-namespace GameLibrary
+namespace JEng.Core.Input
 {
     public enum ButtonPressed { Left, Right, Middle }
     /// <summary>
@@ -94,7 +88,7 @@ namespace GameLibrary
             get
             {
                 MouseState state = Microsoft.Xna.Framework.Input.Mouse.GetState();
-                Vector2 mousePos = new Vector2(state.X, state.Y);               
+                Vector2 mousePos = new Vector2(state.X, state.Y);
 
                 return new Rectangle((int)mousePos.X, (int)mousePos.Y, 2, 2);
             }
@@ -136,7 +130,7 @@ namespace GameLibrary
 
             base.Update(gameTime);
         }
-        
+
         /// <summary>
         /// Draws the required components to screen.
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using GameLibrary;
+﻿using JEng.Core.Input;
+using JEng.Core.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

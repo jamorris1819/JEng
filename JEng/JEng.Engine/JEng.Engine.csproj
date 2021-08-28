@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameLibrary\GameLibrary.csproj" />
     <ProjectReference Include="..\JEng.Content.Pipeline\JEng.Content.Pipeline.csproj" />
     <ProjectReference Include="..\JEng.Core\JEng.Core.csproj" />
   </ItemGroup>

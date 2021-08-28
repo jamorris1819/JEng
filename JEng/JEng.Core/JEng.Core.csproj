@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameLibrary\GameLibrary.csproj" />
     <ProjectReference Include="..\JEng.Content.Pipeline.Data\JEng.Content.Pipeline.Data.csproj" />
   </ItemGroup>
 

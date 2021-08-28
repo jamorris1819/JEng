@@ -1,5 +1,4 @@
-﻿using GameLibrary;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
@@ -14,6 +13,7 @@ using System.Linq;
 using JEng.Engine;
 using MonoGame.Extended.Entities.Systems;
 using System.Collections.Generic;
+using JEng.Core.State;
 
 namespace JEng.Engine.GameScreens
 {

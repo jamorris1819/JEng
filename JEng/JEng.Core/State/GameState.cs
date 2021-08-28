@@ -1,15 +1,9 @@
-// Author(s): Jacob Morris
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
+using System.Text;
 
-namespace GameLibrary
+namespace JEng.Core.State
 {
     /// <summary>
     /// GameState holds all the components in a level.
@@ -85,9 +79,9 @@ namespace GameLibrary
         public override void Draw(GameTime gameTime)
         {
             DrawableGameComponent drawComponent;
-            foreach(GameComponent component in childComponents)
+            foreach (GameComponent component in childComponents)
             {
-                if(component is DrawableGameComponent)
+                if (component is DrawableGameComponent)
                 {
                     drawComponent = component as DrawableGameComponent;
                     if (drawComponent.Visible)
@@ -118,7 +112,7 @@ namespace GameLibrary
             Visible = true;
             Enabled = true;
 
-            foreach(GameComponent component in childComponents)
+            foreach (GameComponent component in childComponents)
             {
                 component.Enabled = true;
                 if (component is DrawableGameComponent)
