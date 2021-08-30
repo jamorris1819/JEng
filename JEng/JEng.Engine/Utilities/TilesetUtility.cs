@@ -1,13 +1,9 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using JEng.Core.TiledMap;
 using Microsoft.Xna.Framework.Graphics;
-using JEng.Core;
-using JEng.Core.Interfaces;
-using JEng.Core.TiledMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace JEng.Engine.Utilities
 {

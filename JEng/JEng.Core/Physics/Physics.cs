@@ -22,7 +22,13 @@ namespace JEng.Core.Physics
         public Rigidbody CreateRigidbody(Collider collider, RigidbodyType type = RigidbodyType.Static)
             => new Rigidbody(
                 _world.CreateBody(default, default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())),
-                collider                
+                collider
+                );
+
+        public Rigidbody CreateRigidbody(Vector2 position, Collider collider, RigidbodyType type = RigidbodyType.Static)
+            => new Rigidbody(
+                _world.CreateBody(ConvertVector(position), default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())),
+                collider
                 );
 
 

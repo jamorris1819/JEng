@@ -10,6 +10,8 @@ namespace JEng.Core.TiledMap
         public int Id { get; set; }
         public TiledMapTileProperty[] Properties { get; set; }
         public int[] Animation { get; set; }
+        public int AnimationSpeed { get; set; }
+        public float AnimationTimer { get; set; }
         public int Index { get; set; }
         public Vector2[] Collider { get; set; }
     }

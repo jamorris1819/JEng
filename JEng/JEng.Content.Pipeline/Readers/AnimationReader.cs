@@ -39,7 +39,7 @@ namespace JEng.Content.Pipeline.Readers
         }
 
         private Animation Convert(ProcessedAnimationData data)
-            => new Animation(data.AnimationName, data.Frames.Select(CreateImageFromData).ToList(), 200);
+            => new Animation(data.AnimationName, data.Frames.Select(CreateImageFromData).ToList(), data.Delay);
 
         private Texture2D CreateImageFromData(ProcessedTexture data)
         {

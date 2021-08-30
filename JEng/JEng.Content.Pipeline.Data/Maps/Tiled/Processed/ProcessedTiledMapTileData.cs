@@ -10,6 +10,7 @@ namespace JEng.Content.Pipeline.Data.Maps.Tiled.Processed
         public int Id { get; set; }
         public ProcessedTiledMapTilePropertyData[] Properties { get; set; }
         public int[] Animation { get; set; }
+        public int AnimationSpeed { get; set; }
         public Vector2[] Collider { get; set; }
     }
 }

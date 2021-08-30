@@ -15,6 +15,8 @@ namespace JEng.Core.Components
 
         public float Timer { get; set; }
 
+        public float Layer { get; set; }
+
         public AnimationComponent(AnimationSet animations)
         {
             _animations = animations;

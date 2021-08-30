@@ -8,18 +8,16 @@ namespace JEng.Engine.Systems
 {
     public class RenderSystem : EntityUpdateSystem, IUpdateSystem, IDrawSystem
     {
-        private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
         private ComponentMapper<AnimationComponent> _animationComponentMapper;
         private ComponentMapper<Sprite> _spriteComponentMapper;
         private ComponentMapper<Transform> _transformComponentMapper;
         private CameraSystem _cameraSystem;
 
-        public RenderSystem(CameraSystem cs, GraphicsDevice graphicsDevice) : base(Aspect.All(typeof(Transform)).One(typeof(AnimationComponent), typeof(Sprite)))
+        public RenderSystem(CameraSystem cs, SpriteBatch spriteBatch) : base(Aspect.All(typeof(Transform)).One(typeof(AnimationComponent), typeof(Sprite)))
         {
             _cameraSystem = cs;
-            _graphicsDevice = graphicsDevice;
-            _spriteBatch = new SpriteBatch(_graphicsDevice);
+            _spriteBatch = spriteBatch;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -31,15 +29,11 @@ namespace JEng.Engine.Systems
 
         public void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, _cameraSystem.Transform);
-
             foreach (var entity in ActiveEntities)
             {
                 if (HasAnimation(entity)) RenderAnimation(entity);
                 if (HasSprite(entity)) RenderSprite(entity);
             }
-
-            _spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
@@ -63,7 +57,7 @@ namespace JEng.Engine.Systems
             var frame = animationComponent.CurrentAnimation.Frames[animationComponent.CurrentAnimation.CurrentFrame];
 
             var offsetForOrigin = new Vector2(frame.Width * 0.5f, frame.Height * 0.5f);
-            _spriteBatch.Draw(frame, transformComponent.GetWorldPosition() - offsetForOrigin, Color.White);
+            _spriteBatch.Draw(frame, transformComponent.GetWorldPosition() - offsetForOrigin, null, Color.White, MathHelper.ToDegrees(transformComponent.GetWorldRotation()), default, 1f, SpriteEffects.None, animationComponent.Layer);
         }
 
         private void RenderSprite(int entity)
@@ -75,9 +69,8 @@ namespace JEng.Engine.Systems
 
             var pos = transformComponent.GetWorldPosition();
             var origin = spriteComponent.OriginPoint;
-            var destination = new Rectangle((int)pos.X, (int)pos.Y, texture.Width, texture.Height);
             
-            _spriteBatch.Draw(texture, destination, null, Color.White, MathHelper.ToDegrees(transformComponent.GetWorldRotation()), origin, SpriteEffects.None, 1.0f);
+            _spriteBatch.Draw(texture, pos, null, Color.White, MathHelper.ToDegrees(transformComponent.GetWorldRotation()), origin, 1f, SpriteEffects.None, spriteComponent.Layer);
         }
 
         private void UpdateAnimation(GameTime gameTime, int entity)

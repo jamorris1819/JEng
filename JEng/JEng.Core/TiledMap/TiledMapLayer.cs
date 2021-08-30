@@ -6,6 +6,7 @@ namespace JEng.Core.TiledMap
 {
     public class TiledMapLayer
     {
+        public string Name { get; set; }
         public int[] Data { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace JEng.Core.Physics
     {
         private Body _body;
         private float _friction;
+        private float _restitution;
 
         internal Body Body => _body;
 
@@ -43,6 +44,16 @@ namespace JEng.Core.Physics
             {
                 _body.SetFriction(value);
                 _friction = value;
+            }
+        }
+
+        public float Restitution
+        {
+            get => _restitution;
+            set
+            {
+                _body.SetRestitution(value);
+                _restitution = value;
             }
         }
 
@@ -81,7 +92,6 @@ namespace JEng.Core.Physics
 
         public void SetVelocity(Vector2 vec)
         {
-            Console.WriteLine(vec);
             _body.LinearVelocity = new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
         }
 

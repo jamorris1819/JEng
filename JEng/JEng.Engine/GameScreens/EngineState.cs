@@ -19,11 +19,15 @@ namespace JEng.Engine.GameScreens
 {
     public class EngineState : BaseGameState
     {
-        private World _world;
-        private PhysicsSystem _physicsSystem;
         private Vector2 _gravity;
 
-        private IEnumerable<ISystem> _additionalSystems = new ISystem[0];
+        private List<ISystem> _additionalSystems = new List<ISystem>();
+
+        protected CameraSystem _cameraSystem;
+        protected PhysicsSystem _physicsSystem;
+
+        protected WorldBuilder _worldBuilder;
+        protected World _world;
 
         protected Physics Physics { get => _physicsSystem.Physics; }
 
@@ -38,25 +42,27 @@ namespace JEng.Engine.GameScreens
         {
             base.Initialize();
 
-            var cameraSystem = new CameraSystem();
+            _cameraSystem = new CameraSystem();
             _physicsSystem = new PhysicsSystem(_gravity);
 
-            var worldBuilder = new WorldBuilder()
-                .AddSystem(cameraSystem)
-                .AddSystem(new RenderSystem(cameraSystem, GameRef.GraphicsDevice))
+            _worldBuilder = new WorldBuilder()
+                .AddSystem(_cameraSystem)
                 .AddSystem(_physicsSystem)
                 .AddSystem(new CharacterControllerSystem());
-
-            foreach (var system in _additionalSystems)
-            {
-                worldBuilder = worldBuilder.AddSystem(system);
-            }
-
-            _world = worldBuilder.Build();
         }
 
-        protected void SetAdditionalSystems(IEnumerable<ISystem> additionalSystems)
-            => _additionalSystems = additionalSystems;
+        protected void AddAdditionalSystems(IEnumerable<ISystem> additionalSystems)
+            => _additionalSystems.AddRange(additionalSystems);
+
+        protected void BuildWorld()
+        {
+            foreach (var system in _additionalSystems)
+            {
+                _worldBuilder = _worldBuilder.AddSystem(system);
+            }
+
+            _world = _worldBuilder.Build();
+        }
 
         protected override void LoadContent()
         {
@@ -72,7 +78,9 @@ namespace JEng.Engine.GameScreens
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
+            GameRef.SpriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, _cameraSystem.Transform);
             _world.Draw(gameTime);
+            GameRef.SpriteBatch.End();
         }
 
         protected Entity CreateEntity() => _world.CreateEntity();

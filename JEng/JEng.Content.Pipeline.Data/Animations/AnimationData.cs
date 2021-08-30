@@ -8,6 +8,7 @@
         public int Y { get; set; }
         public int Length { get; set; }
         public string Direction { get; set; }
+        public int Delay { get; set; }
 
         public AnimationData()
         {

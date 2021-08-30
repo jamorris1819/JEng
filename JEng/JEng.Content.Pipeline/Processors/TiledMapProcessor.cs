@@ -32,7 +32,12 @@ namespace JEng.Content.Pipeline.Processors
             return tiledMap;
         }
 
-        private ProcessedTiledMapLayerData ConvertLayer(TiledMapLayerData data) => new ProcessedTiledMapLayerData { Data = data.Data };
+        private ProcessedTiledMapLayerData ConvertLayer(TiledMapLayerData data)
+            => new ProcessedTiledMapLayerData
+            {
+                Name = data.Name,
+                Data = data.Data            
+            };
 
         private ProcessedTiledMapTileData ConvertTiles(TiledMapTileData data, int baseId)
         {
@@ -40,6 +45,7 @@ namespace JEng.Content.Pipeline.Processors
             tiledMapTile.Id = data.Id + baseId;
             tiledMapTile.Properties = data.Properties?.Select(ConvertTileProperty).ToArray();
             tiledMapTile.Animation = data.Animation?.Select(x => x.TileId + baseId).ToArray();
+            tiledMapTile.AnimationSpeed = data.Animation?.Select(x => x.Duration).First() ?? 0;
 
             var objectData = data.ObjectGroup?.Objects.FirstOrDefault();
             if (objectData != null) {

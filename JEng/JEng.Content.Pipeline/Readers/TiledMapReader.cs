@@ -46,6 +46,7 @@ namespace JEng.Content.Pipeline.Readers
         private TiledMapLayer ConvertLayer(ProcessedTiledMapLayerData layer)
             => new TiledMapLayer
             {
+                Name = layer.Name,
                 Data = layer.Data
             };
 
@@ -54,6 +55,7 @@ namespace JEng.Content.Pipeline.Readers
             var newTile = new TiledMapTile
             {
                 Animation = tile.Animation,
+                AnimationSpeed = tile.AnimationSpeed,
                 Id = tile.Id,
                 Properties = tile.Properties?.Select(ConvertProperty).ToArray(),
                 Collider = tile.Collider

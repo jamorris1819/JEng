@@ -37,6 +37,8 @@ namespace JEng.Engine
 
         protected override void Initialize()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             base.Initialize();
             Graphics.PreferredBackBufferHeight = 1080;
             Graphics.PreferredBackBufferWidth = 1920;
@@ -46,8 +48,6 @@ namespace JEng.Engine
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             font = Content.Load<SpriteFont>("font");
         }
 

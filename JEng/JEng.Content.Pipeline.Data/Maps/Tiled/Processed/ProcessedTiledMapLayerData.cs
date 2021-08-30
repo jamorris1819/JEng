@@ -6,6 +6,7 @@ namespace JEng.Content.Pipeline.Data.Maps.Tiled.Processed
 {
     public class ProcessedTiledMapLayerData
     {
+        public string Name { get; set; }
         public int[] Data { get; set; }
     }
 }

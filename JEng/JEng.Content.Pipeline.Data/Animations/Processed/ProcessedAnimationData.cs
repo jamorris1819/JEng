@@ -17,6 +17,7 @@ namespace JEng.Content.Pipeline.Data.Animations.Processed
             Y = data.Y;
             Length = data.Length;
             Direction = data.Direction;
+            Delay = data.Delay;
         }
     }
 }

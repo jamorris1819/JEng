@@ -32,8 +32,9 @@ namespace JEng.Engine.Systems
                     controller.Controller.Rigidbody = transform;
                 }
                 controller.Controller.Update(gameTime);
-                var animation = _animationMapper.Get(entity);
-                animation?.ChangeAnimation(controller.Controller.GetAction().ToString() + controller.Controller.GetDirection().ToString());
+                /*var animation = _animationMapper.Get(entity);
+                animation?.ChangeAnimation(controller.Controller.GetAction().ToString() + controller.Controller.GetDirection().ToString());*/
+                // todo: put this in a new animation char system
             }
         }
     }
