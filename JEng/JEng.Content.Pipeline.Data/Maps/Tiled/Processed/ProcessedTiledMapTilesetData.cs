@@ -1,21 +1,21 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using JEng.Content.Pipeline.Data.Textures.Processed;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using JEng.Content.Pipeline.Data.Textures.Processed;
 
 namespace JEng.Content.Pipeline.Data.Maps.Tiled.Processed
 {
     public class ProcessedTiledMapTilesetData
     {
         public int StartId { get; set; }
-        public ProcessedTexture[] Tiles { get; private set; }
+        public ProcessedTexture Tileset { get; private set; }
+        public int TilesetHeight { get; set; }
+        public int TilesetWidth { get; set; }
+        public int TilesHigh { get; set; }
+        public int TilesWide { get; set; }
 
-        public ProcessedTiledMapTilesetData() : this(new ProcessedTexture[0]) { }
+        public ProcessedTiledMapTilesetData() : this(null) { }
 
-        public ProcessedTiledMapTilesetData(ProcessedTexture[] tiles)
+        public ProcessedTiledMapTilesetData(ProcessedTexture tileset)
         {
-            Tiles = tiles;
+            Tileset = tileset;
         }
     }
 }

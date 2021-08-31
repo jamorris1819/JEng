@@ -83,11 +83,15 @@ namespace JEng.Content.Pipeline.Readers
 
         private TiledMapTileset ConvertTileset(ProcessedTiledMapTilesetData data)
         {
-            var tiles = data.Tiles.Select(CreateImageFromData).ToArray();
+            var tileset = CreateImageFromData(data.Tileset);
 
-            return new TiledMapTileset(tiles)
+            return new TiledMapTileset(tileset)
             {
-                StartId = data.StartId
+                StartId = data.StartId,
+                TilesWide = data.TilesWide,
+                TilesHigh = data.TilesHigh,
+                TilesetHeight = data.TilesetHeight,
+                TilesetWidth = data.TilesetWidth
             };
         }
 

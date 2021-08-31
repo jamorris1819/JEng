@@ -86,12 +86,28 @@ namespace JEng.Content.Pipeline.Processors
         private ProcessedTiledMapTilesetData ConvertTileset(TiledMapTilesetData data, ContentProcessorContext context)
         {
             var texture = LoadTexture(data.Image, context);
-            var tiles = SliceTilesheet(texture, ConvertTilesetData(data));
+            var tileset = ConvertTilesetData(data);
+            texture.Faces[0][0].TryGetFormat(out SurfaceFormat format);
 
-            var tileset = new ProcessedTiledMapTilesetData(tiles);
-            tileset.StartId = data.FirstGID;
+            var processedTexture = new ProcessedTexture
+            {
+                Data = texture.Mipmaps[0].GetPixelData(),
+                Width = tileset.TilesetWidth,
+                Height = tileset.TilesetHeight,
+                Format = format
+            };
 
-            return tileset;
+            var processedTileset = new ProcessedTiledMapTilesetData(processedTexture)
+            {
+                TilesWide = tileset.TilesWide,
+                TilesHigh = tileset.TilesHigh,
+                TilesetHeight = tileset.TilesetHeight,
+                TilesetWidth = tileset.TilesetWidth
+            };
+
+            processedTileset.StartId = data.FirstGID;
+
+            return processedTileset;
         }
 
         private ProcessedTexture[] SliceTilesheet(Texture2DContent texture, TilesetData tileset)

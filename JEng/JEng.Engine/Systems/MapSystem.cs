@@ -135,9 +135,9 @@ namespace JEng.Engine.Systems
                         data = tileInfo.Animation[tileInfo.Index];
                     }
 
-                    var texture = _tilesetUtility.GetTile(data);
+                    var (texture, sourceRect) = _tilesetUtility.GetTile(data);
 
-                    _spriteBatch.Draw(texture, location, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, i * 0.01f);
+                    _spriteBatch.Draw(texture, location, sourceRect, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, i * 0.01f);
                 }
             }
         }
@@ -164,9 +164,9 @@ namespace JEng.Engine.Systems
                     data = tileInfo.Animation[tileInfo.Index];
                 }
 
-                var texture = _tilesetUtility.GetTile(data);
+                var (texture, sourceRect) = _tilesetUtility.GetTile(data);
 
-                _spriteBatch.Draw(texture, location, null, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, _playersLayer * MapDrawing.LayerInterval + _mapHeightStep * location.Y);
+                _spriteBatch.Draw(texture, location, sourceRect, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, _playersLayer * MapDrawing.LayerInterval + _mapHeightStep * location.Y);
             }
         }
 

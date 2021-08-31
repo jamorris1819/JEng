@@ -8,11 +8,16 @@ namespace JEng.Core.TiledMap
     public class TiledMapTileset
     {
         public int StartId { get; set; }
-        public Texture2D[] Tiles { get; private set; }
+        public Texture2D Texture { get; private set; }
+        public int TilesetHeight { get; set; }
+        public int TilesetWidth { get; set; }
+        public int TilesHigh { get; set; }
+        public int TilesWide { get; set; }
 
-        public TiledMapTileset(Texture2D[] tiles)
+
+        public TiledMapTileset(Texture2D tileset)
         {
-            Tiles = tiles;
+            Texture = tileset;
         }
     }
 }

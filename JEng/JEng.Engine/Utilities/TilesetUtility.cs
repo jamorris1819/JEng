@@ -1,4 +1,5 @@
 ﻿using JEng.Core.TiledMap;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,30 @@ namespace JEng.Engine.Utilities
             _tilesets = tilesets;
         }
 
-        public Texture2D GetTile(int id)
+        public (Texture2D, Rectangle) GetTile(int id)
         {
             var tileset = _tilesets.Last(x => id - x.StartId > 0);
-            return tileset.Tiles[id - tileset.StartId];
+
+            int relativeId = id - tileset.StartId;
+            var texture = tileset.Texture;
+            var rectangle = GetRectangleLocation(tileset, relativeId);
+
+            return (texture, rectangle);
+        }
+
+        private static Rectangle GetRectangleLocation(TiledMapTileset tileset, int x)
+        {
+            int y = 0;
+            while (x >= tileset.TilesWide)
+            {
+                y++;
+                x -= tileset.TilesWide;
+            }
+
+            int tileWidth = tileset.TilesetWidth / tileset.TilesWide;
+            int tileHeight = tileset.TilesetHeight / tileset.TilesHigh;
+
+            return new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         }
     }
 }
