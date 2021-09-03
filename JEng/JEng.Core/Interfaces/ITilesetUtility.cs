@@ -9,6 +9,5 @@ namespace JEng.Core.Interfaces
 {
     public interface ITilesetUtility
     {
-        Tileset GetTileset(string name);
     }
 }

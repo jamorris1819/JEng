@@ -19,6 +19,7 @@ namespace JEng.Content.Pipeline.Writers
             output.Write(value.Id);
             output.Write(value.Category);
             output.WriteObject(value.Animations);
+            output.WriteObject(value.Tilesets);
         }
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)

@@ -21,13 +21,48 @@ namespace JEng.Content.Pipeline.Processor
         {
             _textureManager = new TextureManager(context);
 
+            /* var data = new ProcessedAnimationSetData(input)
+             {
+                 Animations = input.Animations.Where(x => x != null)
+                                             .Select(x => LoadAnimation(x, input.Tilesets.First(y => y.Name == x.TilesetName))).ToArray()
+             };*/
+
+            var tilesetDictionary = new Dictionary<string, ProcessedTilesetData>();
+            var tilesets = ImportTilesets(input.Tilesets).ToArray();
+
+            foreach(var tileset in tilesets)
+            {
+                tilesetDictionary.Add(tileset.Name, tileset);
+            }
+
             var data = new ProcessedAnimationSetData(input)
             {
-                Animations = input.Animations.Where(x => x != null)
-                                            .Select(x => LoadAnimation(x, input.Tilesets.First(y => y.Name == x.TilesetName))).ToArray()
+                Animations = input.Animations.Where(x => x != null).Select(x => new ProcessedAnimationData(x)).ToArray(),
+                Tilesets = tilesetDictionary
             };
 
             return data;
+        }
+
+        private IEnumerable<ProcessedTilesetData> ImportTilesets(IEnumerable<TilesetData> tilesetData)
+        {
+            foreach(var data in tilesetData)
+            {
+                var texture = _textureManager.Get(data.Location);
+                texture.Faces[0][0].TryGetFormat(out SurfaceFormat format);
+                var processedTexture = new ProcessedTexture()
+                {
+                    Width = data.TilesetWidth,
+                    Height = data.TilesetHeight,
+                    Data = texture.Mipmaps[0].GetPixelData(),
+                    Format = format
+                };
+
+                yield return new ProcessedTilesetData(data)
+                {
+                    Texture = processedTexture
+                };
+            }
         }
 
         private ProcessedAnimationData LoadAnimation(AnimationData animation, TilesetData tileset)
@@ -46,15 +81,12 @@ namespace JEng.Content.Pipeline.Processor
                 };
             }
 
-            return new ProcessedAnimationData(animation)
-            {
-                Frames = data
-            };
+            return new ProcessedAnimationData(animation);
         }
 
         private Texture2DContent[] ExtractFrames(AnimationData animation, TilesetData tileset)
         {
-            Texture2DContent texture = _textureManager.Get("character\\" + tileset.Name);
+            Texture2DContent texture = _textureManager.Get(tileset.Location);
             FrameReader frameReader = new FrameReader(texture, tileset);
 
             return Enumerable.Range(0, animation.Length).Select(x => GetFrame(x, animation, frameReader)).ToArray();

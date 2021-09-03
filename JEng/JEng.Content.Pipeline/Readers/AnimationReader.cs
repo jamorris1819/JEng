@@ -6,6 +6,8 @@ using JEng.Content.Pipeline.Data.Textures.Processed;
 using JEng.Core.Graphics;
 using System.Collections.Generic;
 using System.Linq;
+using JEng.Content.Pipeline.Data.Tilesets;
+using JEng.Core.Tilesets;
 
 namespace JEng.Content.Pipeline.Readers
 {
@@ -20,26 +22,45 @@ namespace JEng.Content.Pipeline.Readers
             string id = input.ReadString();
             string category = input.ReadString();
             var animations = input.ReadObject<ProcessedAnimationData[]>();
+            var tilesets = input.ReadObject<Dictionary<string, ProcessedTilesetData>>();
 
-            var set = new AnimationSet(animations.Select(Convert));
+            var set = new AnimationSet();
 
-            if(set.Animations.ContainsKey("WalkDown"))
+            var finalTilesets = new Dictionary<string, Tileset>();
+
+            foreach(var tileset in tilesets)
             {
-                var wd = set.Animations["WalkDown"];
-                set.Animations.Add("StandDown", CreateStandingAnimation("Down", wd));
-                var wl = set.Animations["WalkLeft"];
-                set.Animations.Add("StandLeft", CreateStandingAnimation("Left", wl));
-                var wr = set.Animations["WalkRight"];
-                set.Animations.Add("StandRight", CreateStandingAnimation("Right", wr));
-                var wu = set.Animations["WalkUp"];
-                set.Animations.Add("StandUp", CreateStandingAnimation("Up", wu));
+                finalTilesets.Add(tileset.Key, CreateTileset(tileset.Value));
             }
+
+            set.SetTilesets(finalTilesets);
+
+            var finalAnimations = animations.Select(x => CreateAnimation(set, x)).ToArray();
+            set.SetAnimations(finalAnimations);
 
             return set;
         }
 
-        private Animation Convert(ProcessedAnimationData data)
-            => new Animation(data.AnimationName, data.Frames.Select(CreateImageFromData).ToList(), data.Delay);
+        private Animation CreateAnimation(AnimationSet parent, ProcessedAnimationData data)
+        {
+            var rects = new Rectangle[data.Length];
+            var tileset = parent.Tilesets[data.TilesetName];
+
+            for(int i = 0; i < rects.Length; i++)
+            {
+                var offset = data.Direction == "right" ? new Point(1, 0) : new Point(0, 1);
+                rects[i] = new Rectangle(
+                    (data.X + offset.X * i) * tileset.TileWidth,
+                    (data.Y + offset.Y * i) * tileset.TileHeight,
+                    tileset.TileWidth,
+                    tileset.TileHeight);
+            }
+
+            return new Animation(parent, data.AnimationName, rects, data.Delay)
+            {
+                TilesetId = data.TilesetName
+            };
+        }
 
         private Texture2D CreateImageFromData(ProcessedTexture data)
         {
@@ -49,12 +70,7 @@ namespace JEng.Content.Pipeline.Readers
             return texture;
         }
 
-        private Animation CreateStandingAnimation(string direction, Animation animation)
-        {
-            return new Animation(
-                "Stand" + direction,
-                new List<Texture2D> { animation.Frames[1] },
-                200);
-        }
+        private Tileset CreateTileset(ProcessedTilesetData data)
+            => new Tileset(CreateImageFromData(data.Texture), data.TilesWide, data.TilesHigh);
     }
 }

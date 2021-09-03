@@ -1,12 +1,11 @@
 ﻿using JEng.Content.Pipeline.Data.Animations;
 using JEng.Content.Pipeline.Data.Textures.Processed;
+using JEng.Content.Pipeline.Data.Tilesets;
 
 namespace JEng.Content.Pipeline.Data.Animations.Processed
 {
     public class ProcessedAnimationData : AnimationData
     {
-        public ProcessedTexture[] Frames { get; set; }
-
         public ProcessedAnimationData() : this(new AnimationData()) { }
 
         public ProcessedAnimationData(AnimationData data)

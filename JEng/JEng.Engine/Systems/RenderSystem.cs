@@ -54,10 +54,12 @@ namespace JEng.Engine.Systems
             var animationComponent = _animationComponentMapper.Get(entity);
             var transformComponent = _transformComponentMapper.Get(entity);
 
-            var frame = animationComponent.CurrentAnimation.Frames[animationComponent.CurrentAnimation.CurrentFrame];
+            var animation = animationComponent.CurrentAnimation;
+            var sourceRectangle = animation.Frames[animation.CurrentFrame];
+            var tilesetTexture = animation.Parent.Tilesets[animation.TilesetId].Texture;
 
-            var offsetForOrigin = new Vector2(frame.Width * 0.5f, frame.Height * 0.5f);
-            _spriteBatch.Draw(frame, transformComponent.GetWorldPosition() - offsetForOrigin, null, Color.White, MathHelper.ToDegrees(transformComponent.GetWorldRotation()), default, 1f, SpriteEffects.None, animationComponent.Layer);
+            var offsetForOrigin = new Vector2(sourceRectangle.Width * 0.5f, sourceRectangle.Height * 0.5f);
+            _spriteBatch.Draw(tilesetTexture, transformComponent.GetWorldPosition() - offsetForOrigin, sourceRectangle, Color.White, MathHelper.ToDegrees(transformComponent.GetWorldRotation()), default, 1f, SpriteEffects.None, animationComponent.Layer);
         }
 
         private void RenderSprite(int entity)
