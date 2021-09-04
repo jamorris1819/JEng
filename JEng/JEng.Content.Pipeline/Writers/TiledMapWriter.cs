@@ -26,6 +26,7 @@ namespace JEng.Content.Pipeline.Writers
             output.WriteObject(value.Layers);
             output.WriteObject(value.Tiles);
             output.WriteObject(value.Tilesets);
+            output.WriteObject(value.Objects);
             output.Write(value.TileWidth);
             output.Write(value.TileHeight);
             output.Write(value.Width);

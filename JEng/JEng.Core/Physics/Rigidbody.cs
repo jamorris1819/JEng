@@ -19,6 +19,12 @@ namespace JEng.Core.Physics
 
         public Vector2 Offset { get; set; }
 
+        public object Tag
+        {
+            get => Collider.Fixture.Tag;
+            set => Collider.Fixture.Tag = value;
+        }
+
         public float Rotation
         {
             get => _body.Rotation;
@@ -36,6 +42,8 @@ namespace JEng.Core.Physics
             get => Physics.ConvertVector(_body.LinearVelocity);
             set => _body.LinearVelocity = Physics.ConvertVector(value);
         }
+
+        public Collider Collider { get; set; }
 
         public float Friction
         {
@@ -83,7 +91,8 @@ namespace JEng.Core.Physics
         public Rigidbody(Body body, Collider collider)
         {
             _body = body;
-            collider.ConstructCollider(this);
+            Collider = collider;
+            Collider.ConstructCollider(this);
         }
 
         public void ApplyForce(Vector2 vec) => ApplyForce(vec.X, vec.Y);

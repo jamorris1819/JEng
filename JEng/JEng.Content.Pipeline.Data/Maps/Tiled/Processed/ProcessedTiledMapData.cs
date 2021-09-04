@@ -13,5 +13,6 @@ namespace JEng.Content.Pipeline.Data.Maps.Tiled.Processed
         public ProcessedTiledMapLayerData[] Layers { get; set; }
         public ProcessedTiledMapTileData[] Tiles { get; set; }
         public ProcessedTiledMapTilesetData[] Tilesets { get; set; }
+        public ProcessedTiledMapLayerObjectData[] Objects { get; set; }
     }
 }

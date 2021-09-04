@@ -22,7 +22,7 @@ namespace JEng.Content.Pipeline.Readers
             var layers = input.ReadObject<ProcessedTiledMapLayerData[]>();
             var tiles = input.ReadObject<ProcessedTiledMapTileData[]>();
             var tilesets = input.ReadObject<ProcessedTiledMapTilesetData[]>();
-
+            var objects = input.ReadObject<ProcessedTiledMapLayerObjectData[]>();
 
             var tileWidth = input.ReadInt32();
             var tileHeight = input.ReadInt32();
@@ -37,11 +37,20 @@ namespace JEng.Content.Pipeline.Readers
                 TileHeight = tileHeight,
                 TileWidth = tileWidth,
                 Width = width,
-                Height = height
+                Height = height,
+                Transitions = objects.Select(ConvertTransition).ToArray()
             };
 
             return tiledMap;
         }
+
+        private TiledMapTransition ConvertTransition(ProcessedTiledMapLayerObjectData data)
+            => new TiledMapTransition()
+            {
+                Polygon = data.Polygon.Select(x => new Vector2(x.X, x.Y)).ToArray(),
+                Position = new Vector2(data.X, data.Y),
+                To = data.Properties.First(x => x.Name == "to").Value
+            };
 
         private TiledMapLayer ConvertLayer(ProcessedTiledMapLayerData layer)
             => new TiledMapLayer
@@ -77,8 +86,7 @@ namespace JEng.Content.Pipeline.Readers
             => new TiledMapTileProperty
             {
                 Name = property.Name,
-                Value = property.Value,
-                Type = property.Type
+                Value = property.Value
             };
 
         private TiledMapTileset ConvertTileset(ProcessedTiledMapTilesetData data)

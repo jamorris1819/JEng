@@ -17,12 +17,14 @@ namespace JEng.Content.Pipeline.Processors
     {
         public override ProcessedTiledMapData Process(TiledMapData input, ContentProcessorContext context)
         {
+            var drawLayers = input.Layers.Where(x => x.Data != null);
+            var transitionLayer = input.Layers.First(x => x.Name == "Transitions");
             var tiledMap = new ProcessedTiledMapData
             {
-                Layers = input.Layers.Select(ConvertLayer).ToArray(),
+                Layers = drawLayers.Select(ConvertLayer).ToArray(),
                 Tiles = input.Tilesets.Where(x => x.Tiles != null).Select(ConvertTilesFromTileset).SelectMany(x => x).ToArray(),
                 Tilesets = input.Tilesets.Select(x => ConvertTileset(x, context)).ToArray(),
-
+                Objects = transitionLayer.Objects.Select(x => new ProcessedTiledMapLayerObjectData(x) { Name = "Transition" }).ToArray(),
                 Height = input.Height,
                 Width = input.Width,
                 TileHeight = input.TileHeight,
@@ -79,7 +81,6 @@ namespace JEng.Content.Pipeline.Processors
             => new ProcessedTiledMapTilePropertyData
             {
                 Name = data.Name,
-                Type = data.Type,
                 Value = data.Value
             };
 

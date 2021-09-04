@@ -13,5 +13,6 @@ namespace JEng.Core.TiledMap
         public TiledMapLayer[] Layers { get; set; }
         public TiledMapTile[] Tiles { get; set; }
         public TiledMapTileset[] Tilesets { get; set; }
+        public TiledMapTransition[] Transitions { get; set; }
     }
 }
