@@ -47,10 +47,23 @@ namespace JEng.Content.Pipeline.Readers
         private TiledMapTransition ConvertTransition(ProcessedTiledMapLayerObjectData data)
             => new TiledMapTransition()
             {
+                Direction = GetDirection(data.Properties.First(x => x.Name == "direction").Value.ToLower()),
                 Polygon = data.Polygon.Select(x => new Vector2(x.X, x.Y)).ToArray(),
                 Position = new Vector2(data.X, data.Y),
                 To = data.Properties.First(x => x.Name == "to").Value
             };
+
+        private Vector2 GetDirection(string value)
+        {
+            return value switch
+            {
+                "left" => new Vector2(-1, 0),
+                "right" => new Vector2(1, 0),
+                "up" => new Vector2(0, -1),
+                "down" => new Vector2(0, 1),
+                _ => throw new ArgumentOutOfRangeException(nameof(value)),
+            };
+        }
 
         private TiledMapLayer ConvertLayer(ProcessedTiledMapLayerData layer)
             => new TiledMapLayer

@@ -18,7 +18,7 @@ namespace JEng.Core.Physics.Colliders
 
         public Vector2 Offset { get; set; }
 
-        public bool IsTrigger { get; set; }
+        public bool IsSensor { get; set; }
 
         public abstract void ConstructCollider(Rigidbody rigidbody);
 

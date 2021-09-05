@@ -19,7 +19,7 @@ namespace JEng.Core.Physics.Colliders
         {
             var verts = new tainicom.Aether.Physics2D.Common.Vertices(_points.Select(Physics.ConvertVector));
             Fixture = rigidbody.Body.CreatePolygon(verts, rigidbody.Density);
-            Fixture.Body.SetIsSensor(IsTrigger);
+            Fixture.Body.SetIsSensor(IsSensor);
             Fixture.Body.OnCollision += (sender, other, contact) =>
             {
                 var data = new CollisionData

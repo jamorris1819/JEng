@@ -17,7 +17,7 @@ namespace JEng.Core.Physics.Colliders
         public override void ConstructCollider(Rigidbody rigidbody)
         {
             Fixture = rigidbody.Body.CreateCircle(_radius, rigidbody.Density, Physics.ConvertVector(Offset));
-            Fixture.Body.SetIsSensor(IsTrigger);
+            Fixture.Body.SetIsSensor(IsSensor);
             Fixture.Body.OnCollision += (sender, other, contact) =>
             {
                 var data = new CollisionData

@@ -5,6 +5,7 @@ namespace JEng.Core.Controllers
 {
     public interface ICharacterController
     {
+        bool Enabled { get; set; }
         Rigidbody Rigidbody { get; set; }
         void Update(GameTime gameTime);
     }

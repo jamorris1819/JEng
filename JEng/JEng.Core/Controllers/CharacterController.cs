@@ -7,6 +7,7 @@ namespace JEng.Core.Controllers
     {
         public Rigidbody Rigidbody { get; set; }
         public float Speed { get; set; } = 60.0f;
+        public bool Enabled { get; set; } = true;
 
         public abstract void Update(GameTime gameTime);
 

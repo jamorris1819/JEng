@@ -45,6 +45,8 @@ namespace JEng.Core.Physics
 
         public Collider Collider { get; set; }
 
+        public Collider Sensor { get; set; }
+
         public float Friction
         {
             get => _friction;
@@ -109,5 +111,13 @@ namespace JEng.Core.Physics
 
         public void SetLinearDamping(float f)
             => _body.LinearDamping = f;
+
+        public void CreateSensor(float radius)
+        {
+            Sensor = new CircleCollider(radius);
+            Sensor.IsSensor = true;
+            Sensor.ConstructCollider(this);
+            Sensor.Fixture.Tag = Tag;
+        }
     }
 }

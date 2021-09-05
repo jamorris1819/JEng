@@ -10,7 +10,6 @@ namespace JEng.Engine.Systems
     {
         private ComponentMapper<CharacterControllerComponent> _controllerMapper;
         private ComponentMapper<Rigidbody> _rigidbodyMapper;
-        private ComponentMapper<AnimationComponent> _animationMapper;
 
         public CharacterControllerSystem() : base(Aspect.All(typeof(CharacterControllerComponent), typeof(Transform))) { }
 
@@ -18,7 +17,6 @@ namespace JEng.Engine.Systems
         {
             _controllerMapper = mapperService.GetMapper<CharacterControllerComponent>();
             _rigidbodyMapper = mapperService.GetMapper<Rigidbody>();
-            _animationMapper = mapperService.GetMapper<AnimationComponent>();
         }
 
         public override void Update(GameTime gameTime)
@@ -32,9 +30,6 @@ namespace JEng.Engine.Systems
                     controller.Controller.Rigidbody = transform;
                 }
                 controller.Controller.Update(gameTime);
-                /*var animation = _animationMapper.Get(entity);
-                animation?.ChangeAnimation(controller.Controller.GetAction().ToString() + controller.Controller.GetDirection().ToString());*/
-                // todo: put this in a new animation char system
             }
         }
     }
