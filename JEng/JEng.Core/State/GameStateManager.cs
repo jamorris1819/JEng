@@ -72,6 +72,7 @@ namespace JEng.Core.State
         private void RemoveState()
         {
             GameState state = gameStates.Peek();
+            state.Unload();
             OnStateChange -= state.StateChange;
             Game.Components.Remove(state);
             gameStates.Pop();

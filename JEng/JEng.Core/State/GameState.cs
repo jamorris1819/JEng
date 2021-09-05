@@ -91,6 +91,11 @@ namespace JEng.Core.State
             base.Draw(gameTime);
         }
 
+        public void Unload()
+        {
+            UnloadContent();
+        }
+
         /// <summary>
         /// Triggered when the state changes.
         /// </summary>

@@ -69,6 +69,13 @@ namespace JEng.Engine.GameScreens
             base.LoadContent();
         }
 
+        protected override void UnloadContent()
+        {
+            base.UnloadContent();
+            _world.Dispose();
+            _additionalSystems = new List<ISystem>();
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
