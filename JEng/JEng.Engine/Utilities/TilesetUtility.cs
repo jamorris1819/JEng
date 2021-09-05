@@ -28,14 +28,10 @@ namespace JEng.Engine.Utilities
             return (texture, rectangle);
         }
 
-        private static Rectangle GetRectangleLocation(TiledMapTileset tileset, int x)
+        private static Rectangle GetRectangleLocation(TiledMapTileset tileset, int i)
         {
-            int y = 0;
-            while (x >= tileset.TilesWide)
-            {
-                y++;
-                x -= tileset.TilesWide;
-            }
+            int x = i % tileset.TilesWide;
+            int y = i / tileset.TilesWide;
 
             int tileWidth = tileset.TilesetWidth / tileset.TilesWide;
             int tileHeight = tileset.TilesetHeight / tileset.TilesHigh;
