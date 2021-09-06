@@ -18,7 +18,7 @@ namespace JEng.Core.TiledMap
 
         public void Process()
         {
-            _world = new World(new tainicom.Aether.Physics2D.Common.Vector2(0, 0));
+            _world = new World(new Vector2(0, 0));
             _bodies = new List<Body>();
 
             for (int y = 0; y < _tiledMap.Height; y++)
@@ -28,8 +28,8 @@ namespace JEng.Core.TiledMap
                     var collider = GetCollider(x, y);
                     if (collider.Count() == 0) break;
 
-                    var vertices = new tainicom.Aether.Physics2D.Common.Vertices(collider.Select(ConvertVector));
-                    var position = new tainicom.Aether.Physics2D.Common.Vector2(x * _tiledMap.TileWidth, y * _tiledMap.TileWidth);
+                    var vertices = new tainicom.Aether.Physics2D.Common.Vertices(collider);
+                    var position = new Vector2(x * _tiledMap.TileWidth, y * _tiledMap.TileWidth);
 
                     var body = _world.CreatePolygon(vertices, 1.0f, position, 0, BodyType.Static);
 
@@ -40,7 +40,7 @@ namespace JEng.Core.TiledMap
 
         public Body GetCharacter(float x, float y)
         {
-            var character = _world.CreateCircle(4, 0, new tainicom.Aether.Physics2D.Common.Vector2(x, y), BodyType.Dynamic);
+            var character = _world.CreateCircle(4, 0, new Vector2(x, y), BodyType.Dynamic);
 
 
             return character;
@@ -67,8 +67,5 @@ namespace JEng.Core.TiledMap
 
             return new Vector2[0];
         }
-
-        private tainicom.Aether.Physics2D.Common.Vector2 ConvertVector(Vector2 v)
-            => new tainicom.Aether.Physics2D.Common.Vector2(v.X, v.Y);
     }
 }

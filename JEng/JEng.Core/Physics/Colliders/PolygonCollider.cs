@@ -17,7 +17,7 @@ namespace JEng.Core.Physics.Colliders
 
         public override void ConstructCollider(Rigidbody rigidbody)
         {
-            var verts = new tainicom.Aether.Physics2D.Common.Vertices(_points.Select(Physics.ConvertVector));
+            var verts = new tainicom.Aether.Physics2D.Common.Vertices(_points);
             Fixture = rigidbody.Body.CreatePolygon(verts, rigidbody.Density);
             Fixture.Body.SetIsSensor(IsSensor);
             Fixture.Body.OnCollision += (sender, other, contact) =>

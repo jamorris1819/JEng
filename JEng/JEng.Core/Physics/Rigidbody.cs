@@ -33,14 +33,14 @@ namespace JEng.Core.Physics
 
         public Vector2 Position
         {
-            get => Physics.ConvertVector(_body.Position);
-            set => _body.Position = Physics.ConvertVector(value);
+            get => _body.Position;
+            set => _body.Position = value;
         }
 
         public Vector2 LinearVelocity
         {
-            get => Physics.ConvertVector(_body.LinearVelocity);
-            set => _body.LinearVelocity = Physics.ConvertVector(value);
+            get => _body.LinearVelocity;
+            set => _body.LinearVelocity = value;
         }
 
         public Collider Collider { get; set; }
@@ -99,11 +99,11 @@ namespace JEng.Core.Physics
 
         public void ApplyForce(Vector2 vec) => ApplyForce(vec.X, vec.Y);
 
-        public void ApplyForce(float x, float y) => _body.ApplyLinearImpulse(new tainicom.Aether.Physics2D.Common.Vector2(x, y));
+        public void ApplyForce(float x, float y) => _body.ApplyLinearImpulse(new Vector2(x, y));
 
         public void SetVelocity(Vector2 vec)
         {
-            _body.LinearVelocity = new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
+            _body.LinearVelocity = vec;
         }
 
         public Vector2 GetVelocity()

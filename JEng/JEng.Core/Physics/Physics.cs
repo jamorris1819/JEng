@@ -27,13 +27,8 @@ namespace JEng.Core.Physics
 
         public Rigidbody CreateRigidbody(Vector2 position, Collider collider, RigidbodyType type = RigidbodyType.Static)
             => new Rigidbody(
-                _world.CreateBody(ConvertVector(position), default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())),
+                _world.CreateBody(position, default, (BodyType)Enum.Parse(typeof(BodyType), type.ToString())),
                 collider
                 );
-
-
-        public static Vector2 ConvertVector(tainicom.Aether.Physics2D.Common.Vector2 vec) => new Vector2(vec.X, vec.Y);
-
-        public static tainicom.Aether.Physics2D.Common.Vector2 ConvertVector(Vector2 vec) => new tainicom.Aether.Physics2D.Common.Vector2(vec.X, vec.Y);
     }
 }
