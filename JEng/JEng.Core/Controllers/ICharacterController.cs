@@ -1,12 +1,14 @@
-﻿using JEng.Core.Physics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace JEng.Core.Controllers
 {
     public interface ICharacterController
     {
         bool Enabled { get; set; }
-        Rigidbody Rigidbody { get; set; }
+
+        Body Body { get; set; }
+
         void Update(GameTime gameTime);
     }
 }

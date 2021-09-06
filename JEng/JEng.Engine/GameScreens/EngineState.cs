@@ -29,7 +29,7 @@ namespace JEng.Engine.GameScreens
         protected WorldBuilder _worldBuilder;
         protected World _world;
 
-        protected Physics Physics { get => _physicsSystem.Physics; }
+        protected PhysicsWorld Physics { get => _physicsSystem.Physics; }
 
         public EngineState(Game game, GameStateManager manager) : this(game, manager, Vector2.Zero) { }
 

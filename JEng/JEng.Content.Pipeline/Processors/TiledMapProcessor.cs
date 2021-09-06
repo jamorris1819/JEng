@@ -18,13 +18,13 @@ namespace JEng.Content.Pipeline.Processors
         public override ProcessedTiledMapData Process(TiledMapData input, ContentProcessorContext context)
         {
             var drawLayers = input.Layers.Where(x => x.Data != null);
-            var transitionLayer = input.Layers.First(x => x.Name == "Transitions");
+            var transitionLayer = input.Layers.FirstOrDefault(x => x.Name == "Transitions");
             var tiledMap = new ProcessedTiledMapData
             {
                 Layers = drawLayers.Select(ConvertLayer).ToArray(),
                 Tiles = input.Tilesets.Where(x => x.Tiles != null).Select(ConvertTilesFromTileset).SelectMany(x => x).ToArray(),
                 Tilesets = input.Tilesets.Select(x => ConvertTileset(x, context)).ToArray(),
-                Objects = transitionLayer.Objects.Select(x => new ProcessedTiledMapLayerObjectData(x) { Name = "Transition" }).ToArray(),
+                Objects = transitionLayer?.Objects.Select(x => new ProcessedTiledMapLayerObjectData(x) { Name = "Transition" }).ToArray() ?? new ProcessedTiledMapLayerObjectData[0],
                 Height = input.Height,
                 Width = input.Width,
                 TileHeight = input.TileHeight,

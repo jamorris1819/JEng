@@ -1,60 +1,54 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JEng.Core.Components;
+using JEng.Core.Physics;
+using Microsoft.Xna.Framework;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
-using JEng.Core.Components;
-using JEng.Core.TiledMap;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using JEng.Core.Physics;
-using JEng.Core.Physics.Colliders;
 
 namespace JEng.Engine.Systems
 {
     public class PhysicsSystem : EntityUpdateSystem
     {
-        private tainicom.Aether.Physics2D.Dynamics.World _world;
-        private ComponentMapper<Rigidbody> _rigidbodyMapper;
+        private ComponentMapper<PhysicsComponent> _bodyMapper;
         private ComponentMapper<TransformComponent> _transformMapper;
         private readonly float _simulationSpeed;
 
-        public Physics Physics { get; }
+        public PhysicsWorld Physics { get; }
 
-        public PhysicsSystem(Vector2 gravity) : base(Aspect.All(typeof(Rigidbody), typeof(TransformComponent)))
+        public PhysicsSystem(Vector2 gravity) : base(Aspect.All(typeof(PhysicsComponent), typeof(TransformComponent)))
         {
-            _world = new tainicom.Aether.Physics2D.Dynamics.World(gravity);
-            Physics = new Physics(_world);
+            Physics = new PhysicsWorld(gravity);
             _simulationSpeed = 1.0f / 60.0f;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
-            _rigidbodyMapper = mapperService.GetMapper<Rigidbody>();
+            _bodyMapper = mapperService.GetMapper<PhysicsComponent>();
             _transformMapper = mapperService.GetMapper<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)
         {
-            _world.Step(_simulationSpeed);
+            Physics.Step(_simulationSpeed);
 
             foreach(var entity in ActiveEntities)
             {
-                var rigidbody = _rigidbodyMapper.Get(entity);
+                var body = _bodyMapper.Get(entity);
                 var transform = _transformMapper.Get(entity);
-                transform.Position = rigidbody.Position + rigidbody.Offset;
+                transform.Position = body.Body.Position + body.Offset;
             }
         }
 
         protected override void OnEntityAdded(int entityId)
         {
-            var rigidbody = _rigidbodyMapper.Get(entityId);
-             var transform = _transformMapper.Get(entityId);
+            var body = _bodyMapper.Get(entityId);
+            var transform = _transformMapper.Get(entityId);
 
-            if (rigidbody != null && transform != null)
+            if (body != null && transform != null)
             {
                 if (transform.Parent != null) throw new Exception("Child entities may not have a Rigidbody component");
 
-                rigidbody.Position = transform.Position;
+                body.Body.Position = transform.Position;
             }
         }
     }

@@ -1,11 +1,12 @@
 ﻿using JEng.Core.Physics;
 using Microsoft.Xna.Framework;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace JEng.Core.Controllers
 {
     public abstract class CharacterController : ICharacterController
     {
-        public Rigidbody Rigidbody { get; set; }
+        public Body Body { get; set; }
         public float Speed { get; set; } = 60.0f;
         public bool Enabled { get; set; } = true;
 
@@ -17,9 +18,9 @@ namespace JEng.Core.Controllers
             {
                 vec.Normalize();
                 //Rigidbody.ApplyForce(vec * 100.0f);
-                Rigidbody.SetVelocity(vec * Speed);
+                Body.LinearVelocity = vec * Speed;
             }
-            else Rigidbody.SetVelocity(new Vector2(0, 0));
+            else Body.LinearVelocity = new Vector2(0, 0);
         }
     }
 }
