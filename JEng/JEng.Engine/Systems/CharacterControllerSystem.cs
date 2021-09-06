@@ -11,7 +11,7 @@ namespace JEng.Engine.Systems
         private ComponentMapper<CharacterControllerComponent> _controllerMapper;
         private ComponentMapper<Rigidbody> _rigidbodyMapper;
 
-        public CharacterControllerSystem() : base(Aspect.All(typeof(CharacterControllerComponent), typeof(Transform))) { }
+        public CharacterControllerSystem() : base(Aspect.All(typeof(CharacterControllerComponent), typeof(TransformComponent))) { }
 
         public override void Initialize(IComponentMapperService mapperService)
         {

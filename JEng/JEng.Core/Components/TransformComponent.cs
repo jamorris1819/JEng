@@ -2,15 +2,15 @@
 
 namespace JEng.Core.Components
 {
-    public class Transform
+    public class TransformComponent
     {
         public Vector2 Position { get; set; }
 
         public float Rotation { get; set; }
 
-        public Transform(Vector2 pos) { Position = pos; }
+        public TransformComponent(Vector2 pos) { Position = pos; }
 
-        public Transform Parent { get; set; }
+        public TransformComponent Parent { get; set; }
 
         public Vector2 GetWorldPosition()
             => Position + (Parent?.GetWorldPosition() ?? Vector2.Zero);

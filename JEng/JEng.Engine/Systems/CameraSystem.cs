@@ -10,18 +10,18 @@ namespace JEng.Engine.Systems
     public class CameraSystem : EntityUpdateSystem
     {
         ComponentMapper<CameraComponent> _cameraComponentMapper;
-        ComponentMapper<Transform> _transformComponentMapper;
+        ComponentMapper<TransformComponent> _transformComponentMapper;
 
         public Matrix Transform { private set; get; }
 
-        public CameraSystem() : base(Aspect.All(typeof(CameraComponent), typeof(Transform)))
+        public CameraSystem() : base(Aspect.All(typeof(CameraComponent), typeof(TransformComponent)))
         {
         }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
             _cameraComponentMapper = mapperService.GetMapper<CameraComponent>();
-            _transformComponentMapper = mapperService.GetMapper<Transform>();
+            _transformComponentMapper = mapperService.GetMapper<TransformComponent>();
         }
 
         public override void Update(GameTime gameTime)

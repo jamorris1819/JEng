@@ -10,21 +10,19 @@ namespace JEng.Engine.Systems
     {
         private SpriteBatch _spriteBatch;
         private ComponentMapper<AnimationComponent> _animationComponentMapper;
-        private ComponentMapper<Sprite> _spriteComponentMapper;
-        private ComponentMapper<Transform> _transformComponentMapper;
-        private CameraSystem _cameraSystem;
+        private ComponentMapper<SpriteComponent> _spriteComponentMapper;
+        private ComponentMapper<TransformComponent> _transformComponentMapper;
 
-        public RenderSystem(CameraSystem cs, SpriteBatch spriteBatch) : base(Aspect.All(typeof(Transform)).One(typeof(AnimationComponent), typeof(Sprite)))
+        public RenderSystem(SpriteBatch spriteBatch) : base(Aspect.All(typeof(TransformComponent)).One(typeof(AnimationComponent), typeof(SpriteComponent)))
         {
-            _cameraSystem = cs;
             _spriteBatch = spriteBatch;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
             _animationComponentMapper = mapperService.GetMapper<AnimationComponent>();
-            _spriteComponentMapper = mapperService.GetMapper<Sprite>();
-            _transformComponentMapper = mapperService.GetMapper<Transform>();
+            _spriteComponentMapper = mapperService.GetMapper<SpriteComponent>();
+            _transformComponentMapper = mapperService.GetMapper<TransformComponent>();
         }
 
         public void Draw(GameTime gameTime)

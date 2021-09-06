@@ -1,9 +1,5 @@
 ﻿using JEng.Core.Graphics;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JEng.Core.Components
 {
@@ -11,7 +7,6 @@ namespace JEng.Core.Components
     {
         private AnimationSet _animations;
         private string _currentAnimation;
-
 
         public float Timer { get; set; }
 

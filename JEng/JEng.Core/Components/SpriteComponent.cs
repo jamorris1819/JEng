@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JEng.Core.Components
 {
-    public class Sprite
+    public class SpriteComponent
     {
         private Vector2 _originPoint;
         private SpriteOrigin _origin;
+
         public Texture2D Texture { get; set; }
+
         public Vector2 OriginPoint {
             get => _originPoint;
             set
@@ -19,6 +19,7 @@ namespace JEng.Core.Components
                 _origin = SpriteOrigin.Custom;
             }
         }
+
         public SpriteOrigin Origin
         {
             get => _origin;
@@ -29,11 +30,12 @@ namespace JEng.Core.Components
                 _origin = value;
             }
         }
+
         public float Layer { get; set; }
 
-        public Sprite(Texture2D tex) : this(tex, SpriteOrigin.TopLeft) { }
+        public SpriteComponent(Texture2D tex) : this(tex, SpriteOrigin.TopLeft) { }
 
-        public Sprite(Texture2D tex, SpriteOrigin origin)
+        public SpriteComponent(Texture2D tex, SpriteOrigin origin)
         {
             Texture = tex;
             Origin = origin;
