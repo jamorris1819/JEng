@@ -5,10 +5,10 @@ namespace JEng.Core.Tilesets
     public class Tileset
     {
         public Texture2D Texture { get; }
-        public int ImageHeight => Texture.Height;
-        public int ImageWidth => Texture.Width;
-        public int TileHeight => ImageHeight / TilesHigh;
-        public int TileWidth => ImageWidth / TilesWide;
+        public int ImageHeight { get; }
+        public int ImageWidth { get; }
+        public int TileHeight { get; }
+        public int TileWidth { get; }
         public int TilesHigh { get; }
         public int TilesWide { get; }
 
@@ -17,6 +17,10 @@ namespace JEng.Core.Tilesets
             Texture = image;
             TilesWide = tilesWide;
             TilesHigh = tilesHigh;
+            ImageHeight = Texture.Height;
+            ImageWidth = Texture.Width;
+            TileHeight = ImageHeight / TilesHigh;
+            TileWidth = ImageWidth / TilesWide;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework.Content.Pipeline;
-using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using JEng.Content.Pipeline.Data.Animations;
+﻿using JEng.Content.Pipeline.Data.Animations;
 using JEng.Content.Pipeline.Data.Animations.Processed;
 using JEng.Content.Pipeline.Readers;
+using Microsoft.Xna.Framework.Content.Pipeline;
+using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 namespace JEng.Content.Pipeline.Writers
 {

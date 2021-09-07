@@ -22,7 +22,7 @@ namespace JEng.Content.Pipeline.Readers
             string id = input.ReadString();
             string category = input.ReadString();
             var animations = input.ReadObject<ProcessedAnimationData[]>();
-            var tilesets = input.ReadObject<Dictionary<string, ProcessedTilesetData>>();
+            var tilesets = input.ReadObject<Dictionary<string, Tileset>>();
 
             var set = new AnimationSet();
 
@@ -30,7 +30,7 @@ namespace JEng.Content.Pipeline.Readers
 
             foreach(var tileset in tilesets)
             {
-                finalTilesets.Add(tileset.Key, CreateTileset(tileset.Value));
+                finalTilesets.Add(tileset.Key, tileset.Value);
             }
 
             set.SetTilesets(finalTilesets);

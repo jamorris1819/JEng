@@ -1,15 +1,5 @@
-﻿using JEng.Core.Components;
-using JEng.Core.Controllers;
-using JEng.Core.Graphics;
-using JEng.Core.Physics;
-using JEng.Core.Physics.Colliders;
-using JEng.Core.State;
-using JEng.Core.TiledMap;
+﻿using JEng.Core.State;
 using JEng.Engine.GameScreens;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
-using MonoGame.Extended.ViewportAdapters;
 
 namespace JEng.Sample.GameScreens
 {
