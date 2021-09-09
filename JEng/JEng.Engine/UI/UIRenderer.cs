@@ -23,12 +23,10 @@ namespace JEng.Engine.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointWrap);
             foreach (var state in States)
             {
                 state.Draw(spriteBatch);
             }
-            spriteBatch.End();
         }
     }
 }

@@ -39,9 +39,7 @@ namespace JEng.Engine.Utilities.Transitions
         {
             if (!Active) return;
 
-            spriteBatch.Begin();
-            spriteBatch.Draw(_pixel, new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), CurrentFadeColour);
-            spriteBatch.End();
+            spriteBatch.Draw(_pixel, new Rectangle(0, 0, 320, 180), CurrentFadeColour);
         }
 
         public override void Update(GameTime gameTime)

@@ -32,9 +32,13 @@ namespace JEng.Engine.Systems
 
             if (cameraComponent.Tracking != null)
             {
+                var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 var target = _transformComponentMapper.Get(cameraComponent.Tracking);
-                var pos = Vector2.Lerp(transformComponent.Position, target.Position, 0.1f);
-                transformComponent.Position = pos;
+                //var pos = Vector2.Lerp(transformComponent.Position, target.Position, 0.1f);
+                var pos = Vector2.SmoothStep(transformComponent.Position, target.Position, dt * 12.5f);
+                var roundPos = new Vector2((float)Math.Floor(pos.X), (float)Math.Floor(pos.Y));
+
+                transformComponent.Position = pos;// new Vector2((int)pos.X, (int)pos.Y);
 
                 cameraComponent.Camera.LookAt(transformComponent.Position);
             }

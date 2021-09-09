@@ -20,7 +20,7 @@ namespace JEng.Engine.UI.Components
             // TODO: ensure the panel is large enough
 
             // Top left
-            spriteBatch.Draw(SlicedTexture.Tileset.Texture, new Rectangle(16, 16, 64, 64), color: Colour, sourceRectangle: GetSourceRectangle(SlicedTexture.TopLeft));
+            spriteBatch.Draw(SlicedTexture.Tileset.Texture, new Rectangle(16, 16, 16, 16), color: Colour, sourceRectangle: GetSourceRectangle(SlicedTexture.TopLeft));
         }
 
         public override void Update(GameTime gameTime)

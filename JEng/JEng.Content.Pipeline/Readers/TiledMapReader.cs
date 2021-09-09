@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace JEng.Content.Pipeline.Readers
 {
@@ -40,6 +41,13 @@ namespace JEng.Content.Pipeline.Readers
                 Height = height,
                 Transitions = objects.Select(ConvertTransition).ToArray()
             };
+
+            // CreatePaddedTileset(tilesets.First());
+
+            var file = File.Create("C:\\Projects\\JEng.RPG\\testimage.png");
+            var tex = tiledMap.Tilesets.First().Texture;
+            tex.SaveAsPng(file, tex.Width, tex.Height);
+            file.Dispose();
 
             return tiledMap;
         }
@@ -123,5 +131,36 @@ namespace JEng.Content.Pipeline.Readers
 
             return texture;
         }
+
+        /*private Texture2D CreatePaddedTileset(ProcessedTiledMapTilesetData data)
+        {
+            var texture = CreateImageFromData(data.Tileset);
+            var tileWidth = data.TilesetWidth / data.TilesWide;
+            var tileHeight = data.TilesetHeight / data.TilesHigh;
+
+            
+            for(int y = 0; y < data.TilesHigh; y++)
+            {
+                for(int x = 0; x < data.TilesWide; x++)
+                {
+                    tiles[x, y] = new Texture2D(_graphics.GraphicsDevice, tileWidth + 2, tileHeight + 2, false, data.Tileset.Format);
+
+                    Color[] topBorder = new Color[tileWidth];
+                    texture.GetData(0, new Rectangle(tileWidth * x, tileHeight * y, tileWidth, 1), topBorder, 0, tileWidth);
+
+                    var topBorderTexture = new Texture2D(_graphics.GraphicsDevice, tileWidth, 1, false, data.Tileset.Format);
+
+                    if (x == 1 && y == 1)
+                    {
+                        var file = File.Create("C:\\Projects\\JEng.RPG\\testimage.png");
+                        topBorderTexture.SaveAsPng(file, tileWidth, 1);
+                        file.Dispose();
+                        topBorderTexture.Dispose();
+                    }
+                }
+            }
+
+            return null;
+        }*/
     }
 }

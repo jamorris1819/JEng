@@ -86,15 +86,21 @@ namespace JEng.Content.Pipeline.Processors
 
         private ProcessedTiledMapTilesetData ConvertTileset(TiledMapTilesetData data, ContentProcessorContext context)
         {
-            var texture = LoadTexture(data.Image, context);
+            var texture = LoadTexture(data.Image, context, data.TileWidth, data.TileHeight);
             var tileset = ConvertTilesetData(data);
             texture.Faces[0][0].TryGetFormat(out SurfaceFormat format);
+
+            var tilesWide = data.ImageWidth / data.TileWidth;
+            var tilesHigh = data.ImageHeight / data.TileHeight;
+
+            var paddedWidth = (data.TileWidth + 2) * tilesWide;
+            var paddedHeight = (data.TileHeight + 2) * tilesHigh;
 
             var processedTexture = new ProcessedTexture
             {
                 Data = texture.Mipmaps[0].GetPixelData(),
-                Width = tileset.TilesetWidth,
-                Height = tileset.TilesetHeight,
+                Width = paddedWidth,
+                Height = paddedHeight,
                 Format = format
             };
 
@@ -102,8 +108,8 @@ namespace JEng.Content.Pipeline.Processors
             {
                 TilesWide = tileset.TilesWide,
                 TilesHigh = tileset.TilesHigh,
-                TilesetHeight = tileset.TilesetHeight,
-                TilesetWidth = tileset.TilesetWidth
+                TilesetHeight = paddedHeight,
+                TilesetWidth = paddedWidth
             };
 
             processedTileset.StartId = data.FirstGID;
@@ -145,11 +151,11 @@ namespace JEng.Content.Pipeline.Processors
                 TilesWide = data.ImageWidth / data.TileWidth
             };
 
-        private Texture2DContent LoadTexture(string location, ContentProcessorContext context)
+        private Texture2DContent LoadTexture(string location, ContentProcessorContext context, int tileWidth, int tileHeight)
         {
             var filename = location.Split('/').Last().Split('.').First();
             TextureManager textureManager = new TextureManager(context);
-            return textureManager.Get("world\\" + filename);
+            return textureManager.GetTilesetWithPadding("world\\" + filename, tileWidth, tileHeight);
         }
     }
 }
