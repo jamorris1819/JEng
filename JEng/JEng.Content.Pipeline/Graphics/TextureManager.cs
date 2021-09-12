@@ -50,10 +50,38 @@ namespace JEng.Content.Pipeline.Graphics
                     var sourceRect = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
                     BitmapContent newTile = new PixelBitmapContent<Color>(tileWidth + 2, tileHeight + 2);
 
-                    // Assemble new tile
+                    // Copy original tile
                     BitmapContent.Copy(texture.Mipmaps[0], sourceRect, newTile, new Rectangle(1, 1, tileWidth, tileHeight));
 
-                    // do some more stuff
+                    // Add borders
+
+                    // top
+                    BitmapContent.Copy(
+                        texture.Mipmaps[0],
+                        new Rectangle(sourceRect.X, sourceRect.Y, tileWidth, 1),
+                        newTile,
+                        new Rectangle(1, 0, tileWidth, 1));
+
+                    // bottom
+                    BitmapContent.Copy(
+                        texture.Mipmaps[0],
+                        new Rectangle(sourceRect.X, sourceRect.Y + sourceRect.Height - 1, tileWidth, 1),
+                        newTile,
+                        new Rectangle(1, tileHeight + 1, tileWidth, 1));
+
+                    // left
+                    BitmapContent.Copy(
+                        texture.Mipmaps[0],
+                        new Rectangle(sourceRect.X, sourceRect.Y, 1, tileHeight),
+                        newTile,
+                        new Rectangle(0, 1, 1, tileHeight));
+
+                    // right
+                    BitmapContent.Copy(
+                        texture.Mipmaps[0],
+                        new Rectangle(sourceRect.X + sourceRect.Width - 1, sourceRect.Y, 1, tileHeight),
+                        newTile,
+                        new Rectangle(tileWidth + 1, 1, 1, tileHeight));
 
                     var newTilesetDest = new Rectangle(x * (tileWidth + 2), y * (tileHeight + 2), tileWidth + 2, tileHeight + 2);
                     BitmapContent.Copy(newTile, new Rectangle(0, 0, tileWidth + 2, tileHeight + 2), enlargedTileset, newTilesetDest);

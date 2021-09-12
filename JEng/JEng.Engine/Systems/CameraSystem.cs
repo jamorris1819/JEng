@@ -40,6 +40,9 @@ namespace JEng.Engine.Systems
 
                 transformComponent.Position = pos;// new Vector2((int)pos.X, (int)pos.Y);
 
+                var cameraWidth = cameraComponent.Camera.BoundingRectangle.Width;
+                transformComponent.Position = new Vector2(Math.Clamp(transformComponent.Position.X, cameraWidth * 0.5f, 1000000), transformComponent.Position.Y);
+
                 cameraComponent.Camera.LookAt(transformComponent.Position);
             }
 

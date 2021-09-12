@@ -25,6 +25,12 @@ namespace JEng.Engine.Utilities
             var texture = tileset.Texture;
             var rectangle = GetRectangleLocation(tileset, relativeId);
 
+            // Remove padding
+            rectangle.X++;
+            rectangle.Y++;
+            rectangle.Width -= 2;
+            rectangle.Height -= 2;
+
             return (texture, rectangle);
         }
 

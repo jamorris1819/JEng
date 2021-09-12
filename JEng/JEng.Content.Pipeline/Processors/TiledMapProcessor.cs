@@ -9,6 +9,7 @@ using JEng.Content.Pipeline.Data.Tilesets;
 using JEng.Content.Pipeline.Graphics;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace JEng.Content.Pipeline.Processors
 {
@@ -17,7 +18,7 @@ namespace JEng.Content.Pipeline.Processors
     {
         public override ProcessedTiledMapData Process(TiledMapData input, ContentProcessorContext context)
         {
-            var drawLayers = input.Layers.Where(x => x.Data != null);
+            var drawLayers = GetDrawableLayers(input.Layers);
             var transitionLayer = input.Layers.FirstOrDefault(x => x.Name == "Transitions");
             var tiledMap = new ProcessedTiledMapData
             {
@@ -32,6 +33,43 @@ namespace JEng.Content.Pipeline.Processors
             };
 
             return tiledMap;
+        }
+
+        private IEnumerable<TiledMapLayerData> GetDrawableLayers(IEnumerable<TiledMapLayerData> data)
+        {
+            foreach (var layer in data)
+            {
+                if (layer.Data is null && layer.Layers is null) continue;
+
+                if (layer.Layers is null) yield return layer;
+                else
+                {
+                    var childLayers = UnpackChildLayers(layer);
+
+                    foreach (var childLayer in childLayers)
+                    {
+                        yield return childLayer;
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<TiledMapLayerData> UnpackChildLayers(TiledMapLayerData data)
+        {
+            var childLayers = data.Layers;
+
+            foreach(var child in childLayers)
+            {
+                if (child.Layers is null) yield return child;
+                else
+                {
+                    var grandchildLayers = UnpackChildLayers(child);
+                    foreach (var grandchild in grandchildLayers)
+                    {
+                        yield return grandchild;
+                    }
+                }
+            }
         }
 
         private ProcessedTiledMapLayerData ConvertLayer(TiledMapLayerData data)
@@ -115,31 +153,6 @@ namespace JEng.Content.Pipeline.Processors
             processedTileset.StartId = data.FirstGID;
 
             return processedTileset;
-        }
-
-        private ProcessedTexture[] SliceTilesheet(Texture2DContent texture, TilesetData tileset)
-        {
-            var frameReader = new FrameReader(texture, tileset);
-
-            var textures = new ProcessedTexture[tileset.TilesWide * tileset.TilesHigh];
-
-            for (int y = 0; y < tileset.TilesHigh; y++)
-            {
-                for(int x = 0; x < tileset.TilesWide; x++)
-                {
-                    var frame = frameReader.GetFrame(x, y);
-                    frame.Faces[0][0].TryGetFormat(out SurfaceFormat format);
-                    textures[x + y * tileset.TilesWide] = new ProcessedTexture
-                    {
-                        Data = frame.Mipmaps[0].GetPixelData(),
-                        Width = tileset.TilesetWidth / tileset.TilesWide,
-                        Height = tileset.TilesetHeight / tileset.TilesHigh,
-                        Format = format
-                    };
-                }
-            }
-
-            return textures;
         }
 
         private TilesetData ConvertTilesetData(TiledMapTilesetData data)
