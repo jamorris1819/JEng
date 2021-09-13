@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JEng.Core.Input;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -18,6 +19,11 @@ namespace JEng.Engine.UI
             foreach (var state in States)
             {
                 state.Update(gameTime);
+            }
+
+            if (InputHandler.MousePressed(ButtonPressed.Left))
+            {
+                System.Console.WriteLine(InputHandler.Mouse);
             }
         }
 
