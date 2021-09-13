@@ -8,7 +8,7 @@ namespace JEng.Engine.UI
         public Tileset Tileset { get; }
 
         public Point TopLeft { get; set; }
-        public Point CentreLeft { get; set; }
+        public Point TopCentre { get; set; }
         public Point TopRight { get; set; }
         public Point Left { get; set; }
         public Point Centre { get; set; }

@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JEng.Engine.UI.Components
 {
@@ -10,9 +7,9 @@ namespace JEng.Engine.UI.Components
     {
         public string Name { get; set; }
 
-        public Vector2 Position { get; set; }
+        public Point Position { get; set; }
 
-        public Vector2 Size { get; set; }
+        public Point Size { get; set; }
 
         public bool Enabled { get; set; }
 
@@ -20,8 +17,7 @@ namespace JEng.Engine.UI.Components
 
         public Color Colour { get; set; }
 
-        public Rectangle Region
-            => new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+        public Rectangle Region => new Rectangle(Position, Size);
 
         public UIComponent()
         {
@@ -30,8 +26,8 @@ namespace JEng.Engine.UI.Components
             Visible = true;
         }
 
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime) { }
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch) { }
     }
 }
