@@ -14,6 +14,8 @@ namespace JEng.Engine.Systems
 
         public Matrix Transform { private set; get; }
 
+        public Rectangle? CameraBounds { private set; get; }
+
         public CameraSystem() : base(Aspect.All(typeof(CameraComponent), typeof(TransformComponent)))
         {
         }
@@ -34,19 +36,27 @@ namespace JEng.Engine.Systems
             {
                 var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 var target = _transformComponentMapper.Get(cameraComponent.Tracking);
-                //var pos = Vector2.Lerp(transformComponent.Position, target.Position, 0.1f);
+
                 var pos = Vector2.SmoothStep(transformComponent.Position, target.Position, dt * 12.5f);
                 var roundPos = new Vector2((float)Math.Floor(pos.X), (float)Math.Floor(pos.Y));
 
-                transformComponent.Position = pos;// new Vector2((int)pos.X, (int)pos.Y);
+                transformComponent.Position = pos;
 
-                var cameraWidth = cameraComponent.Camera.BoundingRectangle.Width;
-                transformComponent.Position = new Vector2(Math.Clamp(transformComponent.Position.X, cameraWidth * 0.5f, 1000000), transformComponent.Position.Y);
+                if (CameraBounds != null)
+                {
+                    var cameraWidth = cameraComponent.Camera.BoundingRectangle.Width;
+                    var cameraHeight = cameraComponent.Camera.BoundingRectangle.Height;
+                    transformComponent.Position = new Vector2(
+                        Math.Clamp(transformComponent.Position.X, CameraBounds.Value.X + cameraWidth * 0.5f, CameraBounds.Value.X + CameraBounds.Value.Width - cameraWidth * 0.5f),
+                        Math.Clamp(transformComponent.Position.Y, CameraBounds.Value.Y + cameraHeight * 0.5f, CameraBounds.Value.Y + CameraBounds.Value.Height - cameraHeight * 0.5f));
+                }
 
                 cameraComponent.Camera.LookAt(transformComponent.Position);
             }
 
             Transform = cameraComponent.Camera.GetViewMatrix();
         }
+
+        public void SetCameraBounds(Rectangle rect) => CameraBounds = rect;
     }
 }
