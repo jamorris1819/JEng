@@ -1,11 +1,13 @@
 ﻿using JEng.Core.Tilesets;
 using Microsoft.Xna.Framework;
 
-namespace JEng.Engine.UI
+namespace JEng.Engine.UI.Texture
 {
-    public class SlicedTexture
+    public class SlicedTexture3x3 : ITexture
     {
         public Tileset Tileset { get; }
+
+        public TextureType Type =>  TextureType.Sliced3x3;
 
         public Point TopLeft { get; set; }
         public Point TopCentre { get; set; }
@@ -17,7 +19,7 @@ namespace JEng.Engine.UI
         public Point BottomCentre { get; set; }
         public Point BottomRight { get; set; }
 
-        public SlicedTexture(Tileset tileset)
+        public SlicedTexture3x3(Tileset tileset)
         {
             Tileset = tileset;
         }
