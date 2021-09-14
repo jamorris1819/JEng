@@ -3,7 +3,7 @@ using JEng.Engine.UI.Texture.Renderer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace JEng.Engine.UI.Components
+namespace JEng.Engine.UI.Components.Containers
 {
     public class Panel : UIComponent
     {

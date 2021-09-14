@@ -22,5 +22,7 @@ namespace JEng.Engine.UI
         public virtual void Draw(SpriteBatch spriteBatch) => Components.Draw(spriteBatch);
 
         public virtual void LoadContent(ContentManager content) => Content = content;
+
+        public void HandleInput(UIInputState state) => Components.HandleInput(state);
     }
 }

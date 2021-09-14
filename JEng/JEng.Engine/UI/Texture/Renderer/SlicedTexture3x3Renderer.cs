@@ -3,20 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JEng.Engine.UI.Texture.Renderer
 {
-    public class SlicedTexture3x3Renderer : ITextureRenderer
+    internal class SlicedTexture3x3Renderer : ITextureRenderer
     {
         private SlicedTexture3x3 _texture;
 
-        public Point TileSize { get; }
+        public Point TileSize { get; set; }
 
         public SlicedTexture3x3Renderer(ITexture texture)
         {
-            if (texture is SlicedTexture3x3 tex)
-            {
-                _texture = tex;
-                TileSize = new Point(tex.Tileset.TileWidth, tex.Tileset.TileHeight);
-            }
-            else throw new UIException("Incorrect texture type has been provided.");
+            SetTexture(texture);
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle destination, Color colour)
@@ -227,6 +222,16 @@ namespace JEng.Engine.UI.Texture.Renderer
                     }
                 }
             }
+        }
+
+        public void SetTexture(ITexture texture)
+        {
+            if (texture is SlicedTexture3x3 tex)
+            {
+                _texture = tex;
+                TileSize = new Point(tex.Tileset.TileWidth, tex.Tileset.TileHeight);
+            }
+            else throw new UIException("Incorrect texture type has been provided.");
         }
     }
 }

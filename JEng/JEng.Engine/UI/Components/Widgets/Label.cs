@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
-namespace JEng.Engine.UI.Components
+namespace JEng.Engine.UI.Components.Widgets
 {
     public class Label : UIComponent
     {
@@ -9,13 +10,18 @@ namespace JEng.Engine.UI.Components
 
         public string Text { get; set; }
 
+        public override Point Size
+            => new Point((int)Font.MeasureString(Text).X,
+                (int)Font.MeasureString(Text).Y);
+
+        public int TextWidth => (int)Math.Ceiling(Font.MeasureString(Text).X);
+
+        public int TextHeight => (int)Math.Ceiling(Font.MeasureString(Text).Y);
+
         public Label(string text, SpriteFont font)
         {
             Text = text;
             Font = font;
-
-            var size = font.MeasureString(text);
-            Size = new Point((int)size.X, (int)size.Y);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

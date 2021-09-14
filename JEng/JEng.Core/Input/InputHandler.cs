@@ -250,10 +250,5 @@ namespace JEng.Core.Input
                     keysList.Add(key);
             return keysList;
         }
-
-        public static ButtonState b()
-        {
-            return gamePad.Buttons.A;
-        }
     }
 }

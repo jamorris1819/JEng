@@ -9,7 +9,9 @@ namespace JEng.Engine.UI.Components
 
         public Point Position { get; set; }
 
-        public Point Size { get; set; }
+        public Point Origin { get; set; }
+
+        public virtual Point Size { get; set; }
 
         public bool Enabled { get; set; }
 
